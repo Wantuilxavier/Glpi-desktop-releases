@@ -70,6 +70,49 @@ App e plugin vêm juntos em cada release: use os dois da mesma release.
 3. [Instalar o app](docs/instalacao-estacoes.md) nas estações, manualmente ou em massa.
 4. [Primeiro acesso](docs/primeiro-acesso.md) do usuário.
 
+## Instalar o app no Windows
+
+Os comandos rodam como **administrador** (o app é instalado para todos os usuários da máquina).
+Troque `glpi.exemplo.com.br` pelo endereço do seu GLPI.
+
+**Baixar, conferir e instalar** (PowerShell como administrador):
+
+```powershell
+$versao = "0.1.0"
+$base   = "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v$versao"
+$exe    = "GLPI-Desktop-Client-Setup-$versao.exe"
+Invoke-WebRequest "$base/$exe" -OutFile "$env:TEMP\$exe"
+Invoke-WebRequest "$base/SHA256SUMS.txt" -OutFile "$env:TEMP\SHA256SUMS.txt"
+$esperado = ((Get-Content "$env:TEMP\SHA256SUMS.txt" | Select-String $exe) -split '\s+')[0]
+if ((Get-FileHash "$env:TEMP\$exe" -Algorithm SHA256).Hash -ne $esperado.ToUpper()) { throw "SHA-256 não confere" }
+Start-Process "$env:TEMP\$exe" -ArgumentList '/S /GLPI_URL=https://glpi.exemplo.com.br' -Wait
+```
+
+**Só o instalador** (cmd como administrador, com o arquivo já baixado):
+
+```bat
+:: instalação silenciosa, já apontando para o seu GLPI
+GLPI-Desktop-Client-Setup-0.1.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br
+
+:: o mesmo, sem deixar o usuário trocar de servidor
+GLPI-Desktop-Client-Setup-0.1.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br /LOCK_SERVER=1
+
+:: sem /GLPI_URL, o usuário informa o endereço na primeira abertura
+GLPI-Desktop-Client-Setup-0.1.0.exe /S
+```
+
+**Atualizar:** rode o instalador da versão nova da mesma forma (feche o app antes:
+`taskkill /im "GLPI Desktop Client.exe" /f`). A configuração é mantida.
+
+**Desinstalar:**
+
+```bat
+"C:\Program Files\GLPI Desktop Client\Uninstall GLPI Desktop Client.exe" /S
+```
+
+Instalação por GPO, Intune ou script, o parâmetro opcional `/APP_TOKEN=` e o arquivo `config.json` estão
+em [Instalação nas estações](docs/instalacao-estacoes.md).
+
 ## Mais informações
 
 - [Solução de problemas](docs/solucao-de-problemas.md)
