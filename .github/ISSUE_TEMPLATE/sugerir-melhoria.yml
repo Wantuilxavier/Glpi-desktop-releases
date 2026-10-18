@@ -1,0 +1,30 @@
+name: Sugerir uma melhoria
+description: Uma ideia para o app ou para o plugin.
+labels: ["melhoria"]
+body:
+  - type: textarea
+    id: problema
+    attributes:
+      label: Que situação a melhoria resolve
+      description: O que hoje é difícil ou falta, para quem (usuário, técnico, administrador).
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Como poderia funcionar
+    validations:
+      required: true
+  - type: dropdown
+    id: parte
+    attributes:
+      label: Parte
+      options:
+        - App (estações)
+        - Plugin (servidor GLPI)
+        - Os dois
+        - Documentação
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: Alternativas que você considerou (opcional)

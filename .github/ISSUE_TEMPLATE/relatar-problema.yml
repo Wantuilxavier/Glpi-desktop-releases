@@ -1,0 +1,68 @@
+name: Relatar um problema
+description: Algo no app ou no plugin não funciona como deveria.
+labels: ["problema"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Não cole senhas, tokens (App-Token, chaves de API) nem dados de chamados reais.**
+        Falhas de segurança: use o relato privado descrito no SECURITY.md, não uma issue pública.
+  - type: input
+    id: versao-plugin
+    attributes:
+      label: Versão do plugin
+      description: Configurar → Plugins no GLPI.
+      placeholder: "0.5.0"
+    validations:
+      required: true
+  - type: input
+    id: versao-app
+    attributes:
+      label: Versão do app
+      description: Engrenagem do app (rodapé) ou Aplicativos instalados do Windows.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: versao-glpi
+    attributes:
+      label: Versão do GLPI e do PHP
+      placeholder: "GLPI 11.0.x, PHP 8.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: entrada
+    attributes:
+      label: Como o usuário entra
+      options:
+        - Conta do Windows (SSO)
+        - Usuário e senha
+        - Não chega a entrar
+  - type: textarea
+    id: passos
+    attributes:
+      label: Passos para reproduzir
+      placeholder: |
+        1. Abrir o app
+        2. ...
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que você esperava
+    validations:
+      required: true
+  - type: textarea
+    id: aconteceu
+    attributes:
+      label: O que aconteceu
+      description: Mensagem na tela, se houver.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Trecho do log (opcional)
+      description: "%APPDATA%\GLPI Desktop Client\logs\glpi-desktop-client.log — só as linhas do erro, sem dados reais."
+      render: text
