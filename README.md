@@ -70,6 +70,37 @@ App e plugin vêm juntos em cada release: use os dois da mesma release.
 3. [Instalar o app](docs/instalacao-estacoes.md) nas estações, manualmente ou em massa.
 4. [Primeiro acesso](docs/primeiro-acesso.md) do usuário.
 
+## Instalar o plugin no servidor
+
+No servidor do GLPI 11, como root. Ajuste `GLPI` para a pasta do seu GLPI e `www-data` para o usuário
+do servidor web (no Debian/Ubuntu é `www-data`; no RHEL e derivados, `apache` ou `nginx`).
+
+```bash
+VERSAO=0.5.0
+GLPI=/var/www/glpi
+BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.1.0
+
+cd /tmp
+curl -fLO "$BASE/glpidesktop-$VERSAO.tar.bz2"
+curl -fLO "$BASE/SHA256SUMS.txt"
+sha256sum -c SHA256SUMS.txt --ignore-missing      # deve mostrar "glpidesktop-0.5.0.tar.bz2: OK" (ou "SUCESSO")
+
+tar -xjf "glpidesktop-$VERSAO.tar.bz2" -C "$GLPI/plugins/"
+chown -R www-data:www-data "$GLPI/plugins/glpidesktop"
+
+cd "$GLPI"
+su -s /bin/sh www-data -c 'php bin/console plugin:install --username=<login-de-um-administrador-do-glpi> glpidesktop'
+su -s /bin/sh www-data -c 'php bin/console plugin:activate glpidesktop'
+```
+
+Também dá para instalar pela tela: depois de extrair a pasta, **Configurar → Plugins → GLPI Desktop Client →
+Instalar** e **Ativar**.
+
+Depois, ative a API REST do GLPI e escolha o cliente de API na configuração do plugin (passo a passo em
+[Instalação do plugin](docs/instalacao-plugin.md) e [Configuração do plugin](docs/configuracao-plugin.md)).
+Para **atualizar**, troque a pasta, recarregue o PHP (ex.: `systemctl reload php8.2-fpm`) e rode
+`plugin:install --force`, `plugin:activate` e `cache:clear`.
+
 ## Instalar o app no Windows
 
 Os comandos rodam como **administrador** (o app é instalado para todos os usuários da máquina).
