@@ -3,7 +3,35 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
-## [Não publicado]
+## [0.2.0] — 2026-10-19
+
+### App GLPI Desktop Client 0.2.0
+
+#### Adicionado
+- Nome do aplicativo definido na instalação: `/APP_NAME="<nome>"` no instalador, `appName` na GPO
+  ou no `config.json`, `-AppName` no script PowerShell. Vale para o título da janela, o cabeçalho, a
+  tela de entrada e a bandeja, e vence o nome do plugin. O instalador renomeia o atalho do Menu
+  Iniciar. Nome inválido é ignorado e registrado no log.
+- **Adicionar solução** ao lado de "Enviar resposta", como no GLPI web: o mesmo cartão troca para o
+  modo solução, com modelo e tipo opcionais, e pede confirmação no próprio cartão. Aparece só para
+  quem o GLPI deixa solucionar; recusas do servidor aparecem com a mensagem dele.
+- **Aprovar ou recusar a solução** (requerente): aviso no topo do chamado com "Aprovar solução"
+  (verde) e "Recusar solução" (vermelho, pede o motivo); prazo do fechamento automático, se houver.
+- Estado de cada solução na linha do tempo (Aguardando aprovação, Aprovada, Recusada), selo
+  "Aguarda sua aprovação" na lista e a visão "Aguardando minha aprovação" para todos os perfis.
+
+#### Alterado
+- Bloco Acompanhamento com fundo branco no tema claro, para se destacar do fundo da tela.
+
+### Plugin `glpidesktop` 0.6.0
+
+#### Adicionado
+- No painel do chamado: se o usuário pode solucionar e aprovar (as mesmas regras da tela do GLPI) e o
+  prazo do fechamento automático da entidade.
+- Modelos e tipos de solução da entidade do chamado, e o texto do modelo já com os dados do chamado.
+- Lista de chamados que esperam a aprovação do usuário, com a mesma condição da página inicial do GLPI.
+
+## [0.1.0] — 2026-10-18
 
 ### App GLPI Desktop Client 0.1.0
 

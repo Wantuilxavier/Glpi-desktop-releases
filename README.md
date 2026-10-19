@@ -47,7 +47,7 @@ Conferir o arquivo baixado:
 
 ```powershell
 # Windows: compare o resultado com a linha do arquivo em SHA256SUMS.txt
-Get-FileHash .\GLPI-Desktop-Client-Setup-0.1.0.exe -Algorithm SHA256
+Get-FileHash .\GLPI-Desktop-Client-Setup-0.2.0.exe -Algorithm SHA256
 ```
 
 ```bash
@@ -59,6 +59,7 @@ sha256sum -c SHA256SUMS.txt --ignore-missing
 
 | Plugin | App | GLPI | PHP |
 |---|---|---|---|
+| 0.6.0 | 0.2.0 | 11.0.x | 8.2 ou mais novo |
 | 0.5.0 | 0.1.0 | 11.0.x | 8.2 ou mais novo |
 
 App e plugin vêm juntos em cada release: use os dois da mesma release.
@@ -76,14 +77,14 @@ No servidor do GLPI 11, como root. Ajuste `GLPI` para a pasta do seu GLPI e `www
 do servidor web (no Debian/Ubuntu é `www-data`; no RHEL e derivados, `apache` ou `nginx`).
 
 ```bash
-VERSAO=0.5.0
+VERSAO=0.6.0
 GLPI=/var/www/glpi
-BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.1.0
+BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.2.0
 
 cd /tmp
 curl -fLO "$BASE/glpidesktop-$VERSAO.tar.bz2"
 curl -fLO "$BASE/SHA256SUMS.txt"
-sha256sum -c SHA256SUMS.txt --ignore-missing      # deve mostrar "glpidesktop-0.5.0.tar.bz2: OK" (ou "SUCESSO")
+sha256sum -c SHA256SUMS.txt --ignore-missing      # deve mostrar "glpidesktop-0.6.0.tar.bz2: OK" (ou "SUCESSO")
 
 tar -xjf "glpidesktop-$VERSAO.tar.bz2" -C "$GLPI/plugins/"
 chown -R www-data:www-data "$GLPI/plugins/glpidesktop"
@@ -109,7 +110,7 @@ Troque `glpi.exemplo.com.br` pelo endereço do seu GLPI.
 **Baixar, conferir e instalar** (PowerShell como administrador):
 
 ```powershell
-$versao = "0.1.0"
+$versao = "0.2.0"
 $base   = "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v$versao"
 $exe    = "GLPI-Desktop-Client-Setup-$versao.exe"
 Invoke-WebRequest "$base/$exe" -OutFile "$env:TEMP\$exe"
@@ -123,14 +124,21 @@ Start-Process "$env:TEMP\$exe" -ArgumentList '/S /GLPI_URL=https://glpi.exemplo.
 
 ```bat
 :: instalação silenciosa, já apontando para o seu GLPI
-GLPI-Desktop-Client-Setup-0.1.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br
+GLPI-Desktop-Client-Setup-0.2.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br
 
 :: o mesmo, sem deixar o usuário trocar de servidor
-GLPI-Desktop-Client-Setup-0.1.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br /LOCK_SERVER=1
+GLPI-Desktop-Client-Setup-0.2.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br /LOCK_SERVER=1
 
 :: sem /GLPI_URL, o usuário informa o endereço na primeira abertura
-GLPI-Desktop-Client-Setup-0.1.0.exe /S
+GLPI-Desktop-Client-Setup-0.2.0.exe /S
+
+:: a partir da 0.2.0: com o nome que os usuários veem (janela, cabeçalho, bandeja e atalho do Menu Iniciar)
+GLPI-Desktop-Client-Setup-0.2.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br /APP_NAME="Central de Atendimento"
 ```
+
+O nome (`/APP_NAME`) tem de 2 a 40 caracteres, sem `\ / : * ? " < > |`, e vence o nome configurado no
+plugin. Detalhes, ordem de prioridade e efeito nos atalhos fixados em
+[Instalação nas estações](docs/instalacao-estacoes.md#nome-do-aplicativo).
 
 **Atualizar:** rode o instalador da versão nova da mesma forma (feche o app antes:
 `taskkill /im "GLPI Desktop Client.exe" /f`). A configuração é mantida.
@@ -141,8 +149,8 @@ GLPI-Desktop-Client-Setup-0.1.0.exe /S
 "C:\Program Files\GLPI Desktop Client\Uninstall GLPI Desktop Client.exe" /S
 ```
 
-Instalação por GPO, Intune ou script, o parâmetro opcional `/APP_TOKEN=` e o arquivo `config.json` estão
-em [Instalação nas estações](docs/instalacao-estacoes.md).
+Instalação por GPO, Intune ou script, os parâmetros opcionais `/APP_TOKEN=` e `/APP_NAME=` e o arquivo
+`config.json` estão em [Instalação nas estações](docs/instalacao-estacoes.md).
 
 ## Mais informações
 
