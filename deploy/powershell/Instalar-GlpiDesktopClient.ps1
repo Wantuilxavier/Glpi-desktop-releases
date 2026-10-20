@@ -5,7 +5,7 @@
   Idempotente: se a versão pedida já estiver instalada, só regrava o config.json e sai com 0.
 
 .EXAMPLE
-  .\Instalar-GlpiDesktopClient.ps1 -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.3.1/GLPI-Desktop-Client-Setup-0.3.1.exe"
+  .\Instalar-GlpiDesktopClient.ps1 -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.3.2/GLPI-Desktop-Client-Setup-0.3.2.exe"
     -Versao "0.3.1" -Sha256 "<SHA-256 da release>" -GlpiUrl "https://glpi.exemplo.com.br" [-LockServer]
   -AppToken e -DominiosSSO são opcionais: sem App-Token o app recebe o do plugin depois do login;
   sem domínios, o login do Windows vai só para o endereço do GLPI.

@@ -3,6 +3,19 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.3.2] — 2026-10-20
+
+### App GLPI Desktop Client 0.3.2
+
+Usa o plugin 0.7.0 (sem mudança no plugin).
+
+#### Corrigido
+- Com a solução aguardando a aprovação do usuário, a caixa de resposta continuava embaixo da linha do
+  tempo. No GLPI, uma resposta do requerente num chamado solucionado reabre o chamado e marca a
+  solução como **recusada**, sem nenhum aviso. Agora, enquanto a solução aguarda aprovação, a caixa
+  não aparece: no lugar fica "Para responder, aprove ou recuse a solução no topo do chamado". Depois
+  de "Recusar solução" o chamado volta para atendimento e a caixa reaparece.
+
 ## [0.3.1] — 2026-10-20
 
 ### App GLPI Desktop Client 0.3.1
