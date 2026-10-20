@@ -8,7 +8,7 @@
 param([switch] $ApagarConfig)
 
 $NomeApp = 'GLPI Desktop Client'
-# O instalador grava "GLPI Desktop Client 0.2.0" em Aplicativos instalados (nome + versão)
+# O instalador grava "GLPI Desktop Client 0.3.0" em Aplicativos instalados (nome + versão)
 $FiltroNome = '^GLPI Desktop Client( [0-9][0-9.]*)?$'
 $ErrorActionPreference = 'Stop'
 

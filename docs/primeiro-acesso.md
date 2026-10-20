@@ -22,12 +22,20 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
 
 ## Usar
 
-- **Meus chamados:** "Abertos por mim" e, para perfis técnicos, "Atribuídos a mim" e "Dos meus grupos",
-  com o filtro "Só em aberto". Os filtros voltam ao padrão quando o app reabre.
+- **Meus chamados:** o seletor no topo da lista tem visões prontas:
+  - para todos: Abertos por mim, Meus pendentes, Meus solucionados (30 dias), Aguardando minha
+    aprovação e Observando;
+  - para perfis técnicos, em "Atendimento": Atribuídos a mim, Pendentes atribuídos a mim,
+    Solucionados por mim (7 dias), Dos meus grupos, Sem técnico nos meus grupos e Atrasados.
+  "Só em aberto" vale nas visões que não definem o status.
+- **Filtrar:** "Filtrar…" no seletor combina status, categoria, requerente, técnico, grupo,
+  observador, período e título (técnico, grupo e observador só para perfis técnicos). "Salvar como
+  filtro" grava nas pesquisas salvas do GLPI: o filtro aparece em outros computadores e no GLPI web.
+  No menu "⋯" do filtro: editar, renomear, definir como padrão (o app abre nele) e excluir.
 - **Abrir um chamado:** aba **Novo chamado**, com os formulários do GLPI que o usuário pode responder.
   O rascunho é salvo sozinho até o envio, e dá para anexar arquivos ou uma captura de tela.
-- **Responder:** no chamado aberto, com anexos. Quem tem permissão no perfil altera os campos e os
-  atores na lateral.
+- **Responder:** no chamado aberto, com texto formatado, imagens coladas e anexos. Na lateral, cada
+  perfil altera só o que pode alterar na tela do GLPI (direitos do perfil e modelo de chamado).
 - **Novidades:** notificação do Windows e número no ícone da barra de tarefas e da bandeja.
 - **Tema:** na engrenagem (canto superior direito) — seguir o Windows, claro ou escuro, com ou sem as
   cores do GLPI.

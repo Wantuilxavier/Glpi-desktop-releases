@@ -3,6 +3,91 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.3.0] — 2026-10-20
+
+### App GLPI Desktop Client 0.3.0
+
+#### Adicionado
+- **Editor de texto com formatação** na resposta, na solução e nas perguntas de texto longo dos
+  formulários: estilo do parágrafo (Parágrafo, Título, Citação), negrito, itálico, sublinhado, cor do
+  texto e realce (paleta do editor do GLPI), listas, recuo, link, imagem, tabela e tela cheia. Barra
+  navegável pelo teclado; Ctrl+Enter envia a resposta. Editor: Quill 2.0.3 (BSD-3-Clause), empacotado
+  com o app.
+- Print colado (Ctrl+V) ou imagem escolhida vai dentro do texto, do mesmo jeito que o GLPI web envia.
+- Colar do Word ou do navegador mantém negrito, itálico, listas, links e tabelas e tira fontes,
+  tamanhos e estilos estranhos.
+- O modelo de solução entra formatado; o texto digitado passa da resposta para a solução com a
+  formatação.
+- Imagens dentro dos acompanhamentos e soluções aparecem no app (baixadas com a sessão do usuário).
+- Lista de chamados com largura ajustável: arrastar a alça, duplo clique para voltar ao padrão ou
+  setas/Home/End pelo teclado. A largura escolhida é lembrada.
+- Visão **Observando**: chamados em que o usuário ou um grupo dele é observador (junta os quadros
+  "Seus chamados observados" das visões pessoal e do grupo do GLPI web). "Só em aberto" vale para as
+  duas partes. Nos perfis Self-Service a lista vem do plugin, porque a API não deixa esses perfis
+  pesquisar por observador.
+- **Visões prontas** no seletor da lista, em dois grupos:
+  - Meus chamados (todos os perfis): Abertos por mim, Meus pendentes, Meus solucionados (30 dias),
+    Aguardando minha aprovação e Observando.
+  - Atendimento (perfis técnicos): Atribuídos a mim, Pendentes atribuídos a mim, Solucionados por mim
+    (7 dias), Dos meus grupos, Sem técnico nos meus grupos e Atrasados (prazo de solução vencido,
+    meus ou dos meus grupos).
+  Nas visões que já definem o status, "Só em aberto" some.
+- Selo "Você observa este chamado" no cabeçalho do chamado.
+- Número de chamados da visão ao lado de "Atualizar".
+- **Filtrar chamados**: "Filtrar…" no seletor da lista abre um painel com status, categoria (com ou
+  sem subcategorias), requerente, técnico, grupo atribuído, observador, período (abertura ou última
+  atualização: 7, 30, 90 dias ou de/até) e título. Vários nomes no mesmo campo valem como "ou";
+  campos diferentes, como "e". "Eu mesmo" e "Meus grupos" valem para quem usar o filtro. As listas
+  de pessoas, grupos e categorias são as mesmas da pesquisa do GLPI web para o perfil. O resultado
+  aparece como "Filtro personalizado", com "×" para voltar à visão anterior.
+- "Gerenciar filtros no GLPI" abre as pesquisas salvas no navegador.
+- **Filtros salvos nas pesquisas salvas do GLPI**: "Salvar como filtro" grava o filtro com nome no
+  GLPI, no mesmo formato da tela de pesquisa, então ele aparece em outros computadores e no GLPI web.
+  "Compartilhar com outros usuários" só aparece para quem tem o direito de pesquisa pública no perfil.
+- O seletor lista "Meus filtros" e "Compartilhados". Nos do usuário, o menu "⋯" (ou seta para a
+  direita) tem Editar, Renomear, Definir/Remover padrão e Excluir (com confirmação; o filtro some
+  também do GLPI). Nos públicos de outras pessoas, só "Definir como padrão".
+- Filtro padrão: o app abre nele. Fica guardado neste computador, porque a API do GLPI não deixa
+  estes perfis gravarem a pesquisa padrão do GLPI web.
+- Filtros com opções avançadas feitos no GLPI web (OU/E NÃO entre campos, grupos, outros campos)
+  funcionam no app; "Editar" mostra os critérios em texto, só para leitura, com "Editar no GLPI".
+
+#### Alterado
+- O seletor da lista virou um menu próprio, com as visões e as ações de filtro, navegável pelo
+  teclado.
+- Perfis Self-Service não veem técnico, grupo atribuído e observador no filtro nem as visões de
+  atendimento: a API do GLPI não deixa esses perfis pesquisar por esses campos.
+- Se a busca falhar, a lista fica vazia em vez de continuar mostrando os chamados da visão anterior.
+- Selos de status com as cores e os ícones do GLPI (círculo cheio, círculo vazado, calendário,
+  interrogação para Aprovação). Solucionado e Fechado deixam de aparecer iguais.
+- Status no painel Detalhes escolhido numa lista como a do GLPI web: cada opção com o ícone e o nome
+  inteiro, então "Em atendimento (atribuído)" e "(planejado)" não ficam mais iguais.
+- As cores escolhidas no texto são mantidas ao exibir; no tema escuro, uma cor que não lê (ex.: texto
+  preto) é descartada só naquele trecho e o texto sobre realce é ajustado.
+
+### Plugin `glpidesktop` 0.7.0
+
+#### Adicionado
+- Ação `filtro_buscar` em `front/chamado.php`: usuários, grupos e categorias para o filtro de
+  chamados, com as regras de cada campo da pesquisa do GLPI (direito do técnico, condição do grupo).
+- Ação `filtro_nomes`: nomes dos usuários, grupos e categorias usados numa pesquisa salva que o
+  usuário pode ver (só os ids que estão nela), para o app mostrar o filtro na edição.
+- Ação `observados`: chamados em que o usuário ou um grupo dele é observador, nas entidades ativas
+  e com a mesma regra de leitura da tela do chamado (visão Observando nos perfis Self-Service).
+
+#### Alterado
+- O modelo de solução vem também em HTML, para entrar formatado no editor (o texto simples continua,
+  para apps antigos).
+
+#### Corrigido
+- Perguntas de pessoa dos formulários (observador, requerente, técnico) sem nenhum tipo marcado na
+  configuração não listavam ninguém. Agora seguem a regra do GLPI: nenhum tipo marcado = todos.
+- Aba Detalhes e atores com as mesmas permissões da tela do GLPI. Na interface padrão, com o direito
+  de atualizar chamados, todos os campos, o requerente e o observador ficam editáveis. Quem abriu o
+  chamado (caso do Self-Service) só altera categoria e urgência, e só enquanto o chamado não tem
+  acompanhamento nem tarefa. Antes o app deixava o Self-Service mexer em status, tipo, impacto,
+  origem e atores, e o GLPI descartava a alteração.
+
 ## [0.2.0] — 2026-10-19
 
 ### App GLPI Desktop Client 0.2.0
