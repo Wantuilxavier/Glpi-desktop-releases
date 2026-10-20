@@ -3,6 +3,19 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.3.1] — 2026-10-20
+
+### App GLPI Desktop Client 0.3.1
+
+Usa o plugin 0.7.0 (sem mudança no plugin).
+
+#### Corrigido
+- "Anexar arquivo" no chamado falhava em perfis sem o direito "Documento" (Self-Service e técnicos
+  sem esse direito): o documento era criado, o vínculo com o chamado era recusado e o arquivo ficava
+  solto no GLPI. Agora o documento já nasce ligado ao chamado, como na aba Documentos do GLPI web.
+- O botão "Anexar arquivo" não mostrava nada quando o envio falhava. Agora mostra o motivo, com o nome
+  do arquivo, e recarrega o chamado depois de anexar para o arquivo aparecer na lista.
+
 ## [0.3.0] — 2026-10-20
 
 ### App GLPI Desktop Client 0.3.0

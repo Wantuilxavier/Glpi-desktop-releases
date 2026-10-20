@@ -36,7 +36,7 @@ mesmo**. Na instalação silenciosa por ferramenta de distribuição, esse aviso
 ### Parâmetros do instalador
 
 ```bat
-GLPI-Desktop-Client-Setup-0.3.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br
+GLPI-Desktop-Client-Setup-0.3.1.exe /S /GLPI_URL=https://glpi.exemplo.com.br
 ```
 
 | Parâmetro | O que faz |
@@ -58,7 +58,7 @@ O administrador pode definir o nome que os usuários veem, para seguir a comunic
 organização:
 
 ```bat
-GLPI-Desktop-Client-Setup-0.3.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br /APP_NAME="Central de Atendimento"
+GLPI-Desktop-Client-Setup-0.3.1.exe /S /GLPI_URL=https://glpi.exemplo.com.br /APP_NAME="Central de Atendimento"
 ```
 
 O nome vale para o título da janela, o cabeçalho, a tela de entrada e "Conectar ao servidor", e a
@@ -98,7 +98,7 @@ Numa GPO de **computador**, vinculada primeiro a uma OU de teste:
 
   ```bat
   if not exist "C:\Program Files\GLPI Desktop Client\GLPI Desktop Client.exe" ^
-    "\\servidor\compartilhamento\GLPI-Desktop-Client-Setup-0.3.0.exe" /S /GLPI_URL=https://glpi.exemplo.com.br
+    "\\servidor\compartilhamento\GLPI-Desktop-Client-Setup-0.3.1.exe" /S /GLPI_URL=https://glpi.exemplo.com.br
   ```
 
   O compartilhamento precisa ser legível por "Computadores do domínio". O script roda como SYSTEM,
@@ -123,7 +123,7 @@ Numa GPO de **computador**, vinculada primeiro a uma OU de teste:
 
 Empacote o instalador como **aplicativo Win32** (`.intunewin`):
 
-- Instalação: `GLPI-Desktop-Client-Setup-0.3.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br`
+- Instalação: `GLPI-Desktop-Client-Setup-0.3.1.exe /S /GLPI_URL=https://glpi.exemplo.com.br`
 - Desinstalação: `"C:\Program Files\GLPI Desktop Client\Uninstall GLPI Desktop Client.exe" /S`
 - Contexto: sistema. Regra de detecção: arquivo `C:\Program Files\GLPI Desktop Client\GLPI Desktop Client.exe`.
 
@@ -141,8 +141,8 @@ com 1 quando falha.
 
 ```powershell
 .\Instalar-GlpiDesktopClient.ps1 `
-  -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.3.0/GLPI-Desktop-Client-Setup-0.3.0.exe" `
-  -Versao "0.3.0" `
+  -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.3.1/GLPI-Desktop-Client-Setup-0.3.1.exe" `
+  -Versao "0.3.1" `
   -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
   -GlpiUrl "https://glpi.exemplo.com.br" `
   -LockServer

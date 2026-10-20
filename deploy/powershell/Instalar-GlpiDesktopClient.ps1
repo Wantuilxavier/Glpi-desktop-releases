@@ -5,8 +5,8 @@
   Idempotente: se a versão pedida já estiver instalada, só regrava o config.json e sai com 0.
 
 .EXAMPLE
-  .\Instalar-GlpiDesktopClient.ps1 -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.3.0/GLPI-Desktop-Client-Setup-0.3.0.exe"
-    -Versao "0.3.0" -Sha256 "<SHA-256 da release>" -GlpiUrl "https://glpi.exemplo.com.br" [-LockServer]
+  .\Instalar-GlpiDesktopClient.ps1 -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.3.1/GLPI-Desktop-Client-Setup-0.3.1.exe"
+    -Versao "0.3.1" -Sha256 "<SHA-256 da release>" -GlpiUrl "https://glpi.exemplo.com.br" [-LockServer]
   -AppToken e -DominiosSSO são opcionais: sem App-Token o app recebe o do plugin depois do login;
   sem domínios, o login do Windows vai só para o endereço do GLPI.
   -AppName "Suporte TI" (opcional, app 0.2.0 ou mais novo): nome que os usuários veem. Vai para o
@@ -30,7 +30,7 @@ param(
 
 # ---- CONFIGURAÇÃO ---------------------------------------------------------------
 $NomeApp      = 'GLPI Desktop Client'
-# O instalador grava "GLPI Desktop Client 0.3.0" em Aplicativos instalados (nome + versão)
+# O instalador grava "GLPI Desktop Client 0.3.1" em Aplicativos instalados (nome + versão)
 $FiltroNome   = '^GLPI Desktop Client( [0-9][0-9.]*)?$'
 $PastaConfig  = Join-Path $env:ProgramData 'GlpiDesktopClient'
 $ChavesUninst = @(
