@@ -3,6 +3,42 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.7.1] — 2026-10-21
+
+### App GLPI Desktop Client 0.7.1
+
+Usa o plugin 0.12.0. Com o plugin 0.11.0 o app funciona; nas listas que o plugin monta
+(Aguardando minha aprovação, Aprovações pendentes, Pesquisas pendentes e Observando no
+Self-Service) a ordem fica sempre a da última atualização.
+
+#### Adicionado
+- **Ordenar por** na linha de "Só em aberto": última atualização (padrão), data de abertura (mais
+  recente ou mais antiga primeiro), prioridade e número. Quem ordena é o GLPI. Cada visão guarda a
+  sua ordenação neste computador, por usuário; o seletor só mostra o que o perfil pode usar.
+- Filtro salvo abre na ordenação gravada nele; trocada no seletor, "Salvar alterações" grava a nova.
+- A data de cada chamado acompanha a ordenação: "Aberto …" ao ordenar pela abertura.
+- **Período** no painel "Filtrar chamados", logo abaixo de Status: Atualizado | Aberto e os atalhos
+  Hoje, Últimos 7 dias, Últimos 30 dias, Este mês e Personalizado (de/até).
+- Período aplicado como **chip removível acima da lista** ("Atualizados nos últimos 7 dias ×").
+  Sozinho, sobre uma visão ou um filtro salvo, ele fica por cima dela; funciona com qualquer visão,
+  filtro salvo e "Só em aberto".
+- Filtro salvo com período relativo (Hoje, Este mês, últimos N dias) continua valendo nos dias
+  seguintes.
+
+#### Alterado
+- A contagem de chamados fica no botão do seletor de visões, e "Atualizar" virou um ícone
+  ("Verificar agora").
+
+#### Corrigido
+- O filtro salvo era listado sempre pela última atualização, e salvar um filtro pelo app perdia a
+  ordenação feita no GLPI web.
+
+### Plugin glpidesktop 0.12.0
+
+#### Adicionado
+- Listas do painel do chamado (`aguardando_aprovacao`, `aprovacoes_pendentes`,
+  `pesquisas_pendentes`, `observados`) aceitam `sort` (19, 15, 3 ou 2) e `order` (ASC/DESC).
+
 ## [0.7.0] — 2026-10-21
 
 ### App GLPI Desktop Client 0.7.0
