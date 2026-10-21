@@ -3,6 +3,170 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.7.0] — 2026-10-21
+
+### App GLPI Desktop Client 0.7.0
+
+Usa o plugin 0.11.0. Com o plugin 0.10.0 o app funciona sem a pesquisa de satisfação e sem o aviso
+de versão nova.
+
+#### Adicionado
+- **Busca rápida (Ctrl+K)** e lupa no cabeçalho: número (com ou sem #) abre o chamado; texto busca
+  no título e na descrição (até 10, com status, requerente e quando atualizou); Ações: Novo chamado
+  e Ir para cada visão. ↑ ↓, Enter e Esc.
+- **Menu de contexto na lista** (botão direito, tecla de menu ou Shift+F10): Atribuir a mim, Marcar
+  como lido / não lido, Copiar número (Ctrl+C), Copiar link do GLPI, Abrir no navegador.
+- **Pesquisa de satisfação**: "Como foi o atendimento?" com estrelas e comentário no chamado fechado
+  com a pesquisa pendente; pesquisa externa abre o link; visão "Pesquisas pendentes" só quando há.
+- **Aviso de versão nova** informado pelo plugin.
+- Caixa de resposta compacta (uma linha até receber o foco) e **lista compacta** na engrenagem.
+
+#### Corrigido
+- A opção "Usuários finais podem desativar avisos" do plugin não chegava ao app (o filtro da
+  configuração pública descartava o campo).
+- Trocar de perfil com um filtro salvo de técnico aberto mostrava "Este filtro usa campos que o perfil
+  atual não pode pesquisar." antes de voltar para "Abertos por mim".
+
+### Plugin glpidesktop 0.11.0
+
+#### Adicionado
+- Aba Conexão: **Versão do app disponível** (endpoint público `app_version_available`).
+- Painel do chamado: pesquisa de satisfação pendente; ação `pesquisas_pendentes`.
+
+## [0.6.0] — 2026-10-21 (publicada junto com a 0.7.0)
+
+### App GLPI Desktop Client 0.6.0
+
+Usa o plugin 0.10.0. Com o plugin 0.9.0 o app funciona sem as ações de técnico abaixo (os botões
+não aparecem).
+
+#### Adicionado
+- **Acompanhamento privado**: chip Privado na caixa de resposta (com o direito de ver acompanhamentos
+  privados); ligado, o cartão fica tracejado com o aviso "Resposta privada: o requerente não verá
+  esta mensagem". Começa como a preferência do usuário no GLPI. Na linha do tempo, acompanhamentos e
+  tarefas privados aparecem tracejados com o selo "Privado · só a equipe vê".
+- **Nova tarefa**: modelo (preenche os campos), técnico ("Eu mesmo" por padrão), grupo, estado,
+  duração, privada e o texto. A linha do tempo mostra o técnico e a duração de cada tarefa.
+- **Solicitar aprovação** a uma pessoa ou a um grupo, com comentário; bloco Aprovação na linha do
+  tempo (Aguardando / Aprovada / Recusada).
+- **Aprovar**: visão "Aprovações pendentes" e, no chamado, o aviso "Sua aprovação foi solicitada"
+  com Aprovar e Recusar (motivo obrigatório); aviso do Windows "Aprovação solicitada a você".
+- **Motivo de pendência**: ao mudar para Pendente, diálogo com o motivo, acompanhamento opcional e a
+  retomada automática quando o motivo tem; o motivo aparece ao lado do status.
+
+#### Corrigido
+- Lista na abertura do app com perfil técnico: "Sem requerente" sem prioridade (colunas lidas antes
+  de saber o perfil).
+
+### Plugin glpidesktop 0.10.0
+
+#### Adicionado
+- Painel do chamado: direitos de técnico (privado, tarefa, tarefa privada, solicitar aprovação),
+  preferências do usuário (privado por padrão, estado da tarefa), aprovações do chamado, motivo de
+  pendência atual e motivos disponíveis.
+- Ações `tarefa`, `modelo_tarefa` e `aprovacoes_pendentes`.
+
+## [0.5.0] — 2026-10-21 (publicada junto com a 0.7.0)
+
+### App GLPI Desktop Client 0.5.0
+
+Usa o plugin 0.9.0. Com o plugin 0.8.0 o app funciona; os usuários finais ficam sem a seção Avisos
+(é o padrão) e a linha do tempo mostra o login de quem escreveu quando o perfil não pode ler usuários.
+
+#### Adicionado
+- **Avisos por tipo** no menu da engrenagem: Meus chamados (respostas, status e soluções) e, para
+  perfis de atendimento, Atribuído a mim, Novo na fila dos meus grupos, Resposta do requerente,
+  Solução recusada e Prazo perto de vencer (menos de 2 h; desligado por padrão). **Não perturbe** até
+  o dia seguinte às 8h; o contador de não lidas continua.
+- Usuários finais (perfis sem atendimento) sempre recebem os avisos dos próprios chamados e não veem
+  a seção Avisos nem o Não perturbe, a não ser que o plugin permita.
+- Notificações agrupadas: mais de 3 chamados com novidade no mesmo ciclo viram uma notificação só;
+  o clique abre o chamado ou a visão.
+- **Marcar todas como lidas** na bandeja e no seletor de visões.
+- Faixa "Você tem N novidades nos seus chamados · Ver" ao abrir ou focar o app.
+- Solução aguardando a aprovação do usuário: o botão na barra de tarefas pisca até ele abrir o
+  chamado, e um lembrete diário aparece depois de 24 h sem resposta.
+- **Chamado aberto sempre atualizado**: com a janela em foco, a cada 30 s o app confere a última
+  alteração do chamado aberto e recarrega mantendo a rolagem. Com a resposta em digitação ou lendo
+  mais acima, aparece "N novidades neste chamado · Mostrar", que recarrega sem perder o rascunho e
+  rola até a primeira novidade.
+- Cabeçalho do chamado fixo ao rolar (status, número e título).
+- Linha do tempo com foto ou iniciais, nome completo, hora relativa ("há 2 h", com a data completa
+  ao passar o mouse) e cores diferentes para o requerente e a equipe.
+- Lista para técnicos: chamado não lido com ponto e título em negrito, e segunda linha com
+  requerente, prioridade e prazo de solução ("Vence em 1 h" / "Atrasado 2 d").
+
+#### Alterado
+- **Verificação de fundo com uma busca só** para todos os papéis (requerente, técnico, grupo
+  técnico, observador e grupo observador), só dos chamados alterados desde a última verificação.
+  Ciclo sem mudanças: 1 chamada à API (antes, uma busca por papel e a leitura de cada chamado).
+  Abrir o app: 8 chamadas. O log registra quantas chamadas cada ciclo fez e cada novidade.
+- A lista da visão atual se atualiza em silêncio quando a verificação acha mudanças nela, mantendo
+  a seleção e a rolagem.
+- Falha na verificação: novas tentativas em 2, 4, 8 e 15 minutos; com login pedido, a verificação
+  pausa e volta depois do login. Desbloquear a tela, voltar da suspensão ou focar a janela (no
+  máximo a cada 10 s) verifica na hora.
+
+### Plugin glpidesktop 0.9.0
+
+#### Adicionado
+- Aba Conexão: **Usuários finais podem desativar avisos** (padrão Não), informado ao app pelo
+  endpoint público (`end_users_can_mute`).
+- Painel do chamado: nome completo de quem escreveu na linha do tempo (`autores`, por login).
+
+## [0.4.0] — 2026-10-21 (publicada junto com a 0.7.0)
+
+### App GLPI Desktop Client 0.4.0
+
+Usa o plugin 0.8.0. Com o plugin 0.7.0 o app funciona, sem a busca de pessoa com setor, sem o
+filtro padrão em qualquer computador e com o catálogo montado pelo nome da categoria.
+
+#### Adicionado
+- **Catálogo agrupado por categoria**: tela inicial com Fixados, Usados recentemente (até 4) e
+  blocos de categoria (ícone, nome, primeiros formulários e quantidade). Abrir uma categoria mostra
+  "← Todas as categorias / Nome", a busca dentro dela, as subcategorias e os formulários; Esc volta
+  mantendo a rolagem; categoria com um formulário só abre o formulário direto. A busca ignora as
+  categorias. Ícones = ilustração do GLPI 11 da categoria e do formulário (ou um ícone neutro).
+- **Busca de pessoa** (atores e filtro) em duas linhas: nome e, embaixo, login (quando o perfil pode
+  ver usuários) e grupo principal; grupos com o número de pessoas; seções Dos seus grupos, Usados
+  recentemente (os últimos 10 escolhidos, neste computador) e Todos.
+- **Filtro padrão em qualquer computador**: gravado no plugin, por usuário. A cópia local fica de
+  reserva e um padrão que só existia neste computador é levado ao plugin.
+- Lista vazia com título e explicação de cada visão, no topo da lista, e a ação "Ver todos os meus
+  chamados".
+- Chamado sem requerente: "Sem requerente (aberto automaticamente)" no painel e aviso ao salvar a
+  solução (ninguém poderá aprová-la; o chamado fecha pela regra de fechamento automático do GLPI).
+
+#### Alterado
+- Trocar de visão limpa o painel ("Selecione um chamado") quando o chamado aberto não está na lista
+  nova; se está, ele continua aberto e selecionado.
+- **Tela cheia da resposta** cobre a janela inteira, com o contexto ("Responder · #número — título" ou
+  "Adicionar solução · …") e as mesmas ações da caixa normal; é o mesmo editor, sem perder texto,
+  formatação ou imagens. Esc sai.
+- Seletor de visões com 360 px; nomes de filtro em até 2 linhas (o completo no title) e a nota
+  ("Público", "Padrão") na segunda linha.
+- Status curto no painel Detalhes ("Em atendimento", "Planejado"); nome inteiro na lista e no title.
+- Nome da paleta do GLPI no menu da engrenagem ("Auror", "Dark Auror"…); paleta personalizada:
+  "Paleta do GLPI".
+- A seção Anexos some quando o chamado não tem anexos.
+- O seletor de Perfil some quando o usuário tem um perfil só.
+
+### Plugin `glpidesktop` 0.8.0
+
+#### Adicionado
+- Tabela `glpi_plugin_glpidesktop_preferences` (uma linha por usuário), criada na instalação ou
+  atualização e apagada na desinstalação.
+- `front/app.php?acao=preferencias`: GET lê o filtro padrão do usuário; POST grava (token CSRF do
+  GLPI no cabeçalho `X-Glpi-Csrf-Token`). Só aceita pesquisa salva de chamados que o usuário pode ver.
+- `front/formularios.php?acao=ilustracao&id=…`: SVG de uma ilustração nativa do GLPI 11.
+
+#### Alterado
+- Busca de pessoa (`chamado.php`, ações `buscar` de ator e `filtro_buscar`): login (só com o direito
+  de ler usuários), grupo principal, se a pessoa é de um grupo do usuário e o número de pessoas de
+  cada grupo — só para os itens que o GLPI já devolveu para aquele perfil.
+- Catálogo (`formularios.php?acao=catalogo`): manda as categorias (com pai e ilustração) e a
+  ilustração de cada formulário.
+
 ## [0.3.2] — 2026-10-20
 
 ### App GLPI Desktop Client 0.3.2
