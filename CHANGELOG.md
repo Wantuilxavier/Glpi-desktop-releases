@@ -3,6 +3,75 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.9.0] — 2026-10-21
+
+### App GLPI Desktop Client 0.9.0
+
+Usa o plugin 0.14.0. Com o plugin 0.13.0 o app funciona sem os dados do computador, sem o
+preenchimento automático e sem os cartões Equipamento e Chamados relacionados.
+
+#### Adicionado
+- **Dados deste computador no novo chamado**: ao abrir um formulário, o app lê (sem administrador)
+  nome, usuário do Windows, versão do Windows, IPs, disco do sistema, memória, tempo ligado,
+  fabricante, modelo e número de série. A caixa **"Incluir dados deste computador"** vem marcada, diz
+  "Depois de enviado, só a equipe de TI vê" e mostra exatamente o que vai; desmarcada, nada é enviado.
+- **Preenchimento automático**: as perguntas escolhidas no plugin já vêm preenchidas (nome do
+  computador, série, modelo, tipo notebook/desktop, usuário; em pergunta de item do tipo Computador,
+  o computador do inventário), com o selo "✓ preenchido". O usuário pode alterar, e o rascunho do
+  formulário vence.
+- **Equipamento** na lateral do chamado (perfis técnicos): itens vinculados com tipo, fabricante,
+  modelo, usuário, IP e último inventário, "Abrir no GLPI ↗" e "+ Vincular".
+- **Chamados relacionados** na lateral (perfis técnicos): Ligado, Duplicado, Pai e Filho, com status e
+  número (abre no app) e "+ Vincular" (número ou título + tipo de vínculo). Em duplicado, **"Juntar
+  neste chamado"** (mesclagem do GLPI, com confirmação e resumo do que será movido) ou, sem o direito
+  de juntar, **"Marcar como duplicado e solucionar"** ("Tratado no chamado #X").
+
+### Plugin glpidesktop 0.14.0
+
+#### Adicionado
+- Aba **Preenchimento automático**: oferecer ou não "Incluir dados deste computador", autor do
+  acompanhamento privado (padrão: usuário de sistema do GLPI) e as regras formulário + pergunta +
+  dado, com registro no log de eventos do GLPI.
+- `app.php`: `acao=preenchimento`, `maquina` (computador no inventário pela série e pelo nome; só id,
+  nome e se é do usuário) e `maquina_chamado` (vincula o computador e grava os dados num
+  acompanhamento privado, sem notificação; só quem acabou de abrir o chamado, até 30 minutos, uma vez).
+  O requerente não vê o acompanhamento: o autor nunca é ele nem "sem autor".
+- `app.php`: `acao=vinculos`, `inventario_buscar`, `juntar_resumo`, `vincular_item`,
+  `vincular_chamado`, `juntar` (Ticket::merge; a origem vai para a lixeira) e `solucionar_duplicado`.
+  Os direitos são os do GLPI, com a sessão do usuário.
+- Migração: tabelas `glpi_plugin_glpidesktop_autofills` e `glpi_plugin_glpidesktop_ticketmachines`.
+
+## [0.8.0] — 2026-10-21 (publicada junto com a 0.9.0)
+
+### App GLPI Desktop Client 0.8.0
+
+Usa o plugin 0.13.0. Com o plugin 0.12.0 o app funciona sem avisos da TI, sem registrar a
+estação e sem categoria no chamado de diagnóstico.
+
+#### Adicionado
+- **Avisos gerais da TI**: faixa no topo da lista e do catálogo com o aviso mais grave e "e mais N";
+  Informação e Aviso podem ser dispensados, Incidente fica até o fim; notificação do Windows na
+  primeira vez (Aviso e Incidente); no Incidente com chamado principal, "Também estou com esse
+  problema" (vira observador) e "Acompanhar"; "Avisos da TI" na bandeja e na engrenagem. Buscados no
+  mesmo ciclo da verificação de fundo.
+- **Estação com o app**: a cada login e uma vez por dia, só o nome do computador, a versão do app e a
+  do Windows.
+- **Enviar diagnóstico** (engrenagem e bandeja): logs dos últimos 7 dias, versões, configuração da
+  máquina e teste de conexão, sem senhas, tokens, cookies nem conteúdo de chamados; mostra o que vai
+  antes de enviar e anexa a um chamado do usuário ou abre "Diagnóstico do aplicativo".
+
+### Plugin glpidesktop 0.13.0
+
+#### Adicionado
+- Aba **Avisos**: cadastro (título, mensagem, gravidade, início/fim, ativo, chamado principal, público
+  por entidade, localização, grupo e perfil), com registro no log de eventos do GLPI;
+  `app.php?acao=avisos` (filtrado pelo público no servidor) e `acao=aviso_observar`.
+- Aba **Estações**: computador, usuário, versão, Windows e último uso; filtros, exportar CSV,
+  destaque para versões antigas e link para o computador do inventário; tarefa automática
+  `limpezaEstacoes` (sem uso há mais de 180 dias, configurável).
+- Aba Conexão: categoria do chamado de diagnóstico.
+- Migração: tabelas `glpi_plugin_glpidesktop_announcements` e `glpi_plugin_glpidesktop_stations`.
+
 ## [0.7.1] — 2026-10-21
 
 ### App GLPI Desktop Client 0.7.1
