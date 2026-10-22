@@ -3,6 +3,47 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.14.0] — 2026-10-22
+
+### App GLPI Desktop Client 0.14.0
+
+Usa o plugin **0.17.0**. Com um plugin mais antigo, funciona como a 0.13.1.
+
+#### Alterado
+- **Muito menos carga no servidor do GLPI** na verificação de novidades em segundo plano: o app pergunta
+  ao GLPI só o que mudou nos chamados do usuário, numa consulta leve, e só lê os chamados que mudaram.
+  Sem novidade, cada verificação é uma requisição só, sem a busca de chamados. Medido na homologação, por
+  verificação: de 3 a 4 requisições e 167 a 255 consultas ao banco para 1 requisição e 41 a 71 consultas.
+- A lista de aprovações pendentes e os avisos da TI só são buscados quando o GLPI avisa que mudaram.
+- Respeita o **intervalo mínimo para todas as estações** da aba Conexão do plugin: nunca verifica mais
+  rápido que ele, mesmo que a GPO diga outro valor.
+- Quando o GLPI não consegue dizer o que mudou (plugin antigo, registro de novidades desligado, muito
+  tempo sem verificar ou mudanças demais de uma vez), o app faz a verificação completa, como antes.
+
+### Plugin glpidesktop 0.17.0
+
+Funciona com o app 0.13.1. O app 0.14.0, que usa as novidades abaixo, sai na mesma release.
+
+#### Adicionado
+- **Registro das novidades dos chamados:** o GLPI passa a anotar cada mudança em chamado (chamado
+  novo, status, acompanhamento, solução, tarefa, atribuição, ator incluído, aprovação) e para quem ela
+  interessa (os atores do chamado). Só números ficam guardados (chamado, tipo, papel), nenhum texto do
+  chamado. Com isso o app 0.14.0 pergunta só o que mudou, numa consulta leve, em vez de buscar os
+  chamados a cada verificação.
+- Tarefa automática **limpezaEventos** (diária): apaga as novidades com mais de 7 dias (o número de
+  dias é o parâmetro da tarefa).
+- Aba **Conexão**:
+  - **Intervalo mínimo para todas as estações:** o app 0.14.0 ou mais novo nunca verifica mais rápido
+    que isso, mesmo que a GPO diga outro valor. Vale na próxima verificação de cada estação, sem
+    reiniciar. Padrão: 0 (sem trava).
+  - **Registrar novidades dos chamados para o app:** padrão **Sim**. Em **Não**, o app volta a buscar
+    os chamados a cada verificação.
+  - As mudanças dessas duas opções ficam no log de eventos do GLPI.
+
+#### Atualizar
+- Cria a tabela `glpi_plugin_glpidesktop_eventos` e a tarefa automática `limpezaEventos`. Faça um
+  backup do banco antes, como em toda atualização do plugin.
+
 ## [0.13.1] — 2026-10-22
 
 ### App GLPI Desktop Client 0.13.1

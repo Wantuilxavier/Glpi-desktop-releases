@@ -27,6 +27,8 @@ O app lê a identidade ao abrir, já na tela de login, e guarda a última para a
 | **Cliente de API** | o cliente de API do GLPI (*Configurar → Geral → API*) que o app usa. **Obrigatório**, a não ser que todas as estações tenham o App-Token na configuração. O app recebe o App-Token dele depois que o usuário entra; a página nunca mostra o token |
 | Domínios do SSO | servidores que podem receber o login do Windows, separados por vírgula (ex.: `*.exemplo.com.br`). Vazio = só o endereço do GLPI, o que basta na maioria dos casos |
 | Intervalo de verificação | de quanto em quanto tempo o app procura novidades nos chamados (1 a 60 minutos) |
+| Intervalo mínimo para todas as estações | trava central (0 a 60 minutos; 0 = sem trava): o app 0.14.0 ou mais novo nunca verifica mais rápido que isso, mesmo que a GPO diga outro valor. Vale na próxima verificação de cada estação, sem reiniciar. Use para aliviar o servidor na hora (plugin 0.17.0 ou mais novo) |
+| Registrar novidades dos chamados para o app | **Sim** (padrão): o GLPI anota cada mudança em chamado e o app 0.14.0 ou mais novo pergunta só o que mudou, numa consulta leve. **Não**: o app volta a buscar os chamados a cada verificação, com mais carga no banco. A tarefa automática **limpezaEventos** apaga as anotações com mais de 7 dias (plugin 0.17.0 ou mais novo) |
 | Permitir visualização em colunas | **Não** (padrão): o app mostra os chamados só em lista. **Sim**: perfis técnicos veem o botão **Lista \| Colunas** e podem organizar os chamados em uma coluna por status, arrastando entre elas. Vale na próxima vez que o app for aberto (plugin 0.16.0 ou mais novo) |
 
 Crie o cliente de API só para o app (ex.: "glpi-desktop") e preencha a **faixa de IP** das redes das
