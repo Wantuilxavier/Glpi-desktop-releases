@@ -117,7 +117,7 @@ Numa GPO de **computador**, vinculada primeiro a uma OU de teste:
   | `lockServer` | `REG_DWORD` | `1` (opcional) |
   | `appToken` | `REG_SZ` | opcional |
   | `dominiosSSO` | `REG_SZ` | opcional, ex.: `*.exemplo.com.br` |
-  | `intervaloMinutos` | `REG_DWORD` | opcional, padrão `2` |
+  | `intervaloMinutos` | `REG_DWORD` | opcional, padrão `2` (minutos entre as verificações; 4× com o computador ocioso ou bloqueado, a partir da 0.13.1) |
   | `appName` | `REG_SZ` | opcional, ex.: `Suporte TI` ([nome do aplicativo](#nome-do-aplicativo)) |
 
   A GPO vence o que o instalador gravou. Exemplo para dar um nome às estações de uma OU: uma GPO

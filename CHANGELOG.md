@@ -3,6 +3,24 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.13.1] — 2026-10-22
+
+### App GLPI Desktop Client 0.13.1
+
+Usa o plugin **0.16.1** (sem mudança no plugin).
+
+#### Alterado
+- **Menos carga no servidor do GLPI** na verificação de novidades em segundo plano:
+  - o app não pede mais os dados da sessão web antes de cada consulta ao plugin (agora só quando
+    faltam ou quando a sessão é renovada);
+  - com o computador **ocioso** (mais de 10 minutos sem uso) ou **bloqueado**, verifica 4 vezes mais
+    devagar; ao voltar a usar, verifica na hora;
+  - ao voltar para a janela do app, só verifica de novo se a última verificação tiver mais de 1 minuto.
+
+#### Segurança
+- Biblioteca que limpa o HTML dos chamados (DOMPurify) atualizada para a 3.4.17, com correções de
+  segurança publicadas depois da versão anterior.
+
 ## [0.13.0] — 2026-10-22
 
 ### App GLPI Desktop Client 0.13.0
