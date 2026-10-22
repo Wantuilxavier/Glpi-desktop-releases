@@ -3,6 +3,58 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.13.0] — 2026-10-22
+
+### App GLPI Desktop Client 0.13.0
+
+Usa o plugin **0.16.1** (funciona também com o 0.16.0).
+
+#### Adicionado
+- **Tamanho do texto:** Ctrl + aumenta, Ctrl − diminui e Ctrl 0 volta a 100%, de 80% a 150%. Também
+  com Ctrl e a roda do mouse e na engrenagem, em **Tamanho do texto**. A escolha fica salva para o
+  usuário do Windows e vale na próxima vez que o app abrir.
+- Parâmetro **`--minimizado`**: o app abre direto na bandeja, sem mostrar a janela, com os avisos e a
+  verificação de novidades ligados. Se já estiver aberto para o usuário, não abre outro.
+- Parâmetro **`--fechar`**: encerra o app aberto do usuário, como **Fechar** na bandeja.
+- Script **`Atualizar-GlpiDesktopClient.ps1`** (pasta `deploy/powershell`) para RMM: confere o SHA-256,
+  fecha o app em todas as sessões, instala, confere a versão e reabre o app minimizado para quem
+  estiver logado. Veja "Atualização por RMM com o app reaberto" na instalação das estações.
+
+#### Corrigido
+- **Clique na notificação** sempre abre o app no chamado: com a janela aberta, minimizada ou só na
+  bandeja, pela Central de Notificações (mesmo horas depois) e com o app fechado. O instalador passa
+  a registrar o protocolo `glpidesktop://`, usado só pelas notificações do app.
+
+### Plugin glpidesktop 0.16.1
+
+#### Corrigido
+- Formulários com pergunta de **Urgência** ou de **Tipo de requisição** continuam abrindo no app
+  se uma versão futura do GLPI mudar a forma de ler o valor padrão dessas perguntas: o plugin
+  passa a ler o valor padrão gravado na pergunta. Na versão atual do GLPI nada muda.
+
+## [0.12.0] — 2026-10-22
+
+### App GLPI Desktop Client 0.12.0
+
+Usa o plugin **0.16.0**. Com plugin mais antigo, a visão em colunas fica desativada e o resto do app
+funciona normalmente.
+
+#### Alterado
+- A **visão em colunas** (botão **Lista | Colunas**) só aparece para os técnicos quando o
+  administrador libera em **Permitir visualização em colunas** no plugin. Desativada, o app mostra
+  só a lista, mesmo para quem tinha escolhido Colunas antes.
+
+#### Corrigido
+- O **cabeçalho fixo** do chamado (status, número e título, ao rolar) agora gruda no topo da área
+  do chamado: o texto que rola não aparece mais acima dele nem ao lado dele em janelas largas.
+  Título longo termina em reticências, com o título completo ao passar o mouse.
+
+### Plugin glpidesktop 0.16.0
+
+#### Adicionado
+- Aba **Conexão**: **Permitir visualização em colunas** (padrão: **Não**). A atualização do plugin
+  grava a opção desativada; quem quiser a visão em colunas precisa ligar.
+
 ## [0.11.0] — 2026-10-22
 
 ### App GLPI Desktop Client 0.11.0

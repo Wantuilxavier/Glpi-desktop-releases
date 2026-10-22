@@ -22,7 +22,7 @@ O plugin `glpidesktop` fica no servidor GLPI e é obrigatório para o app funcio
 
    ```bash
    cd /var/www/glpi/plugins            # ajuste para a raiz do seu GLPI
-   tar -xjf /caminho/glpidesktop-0.15.0.tar.bz2
+   tar -xjf /caminho/glpidesktop-0.16.1.tar.bz2
    ```
 
 3. Confira:

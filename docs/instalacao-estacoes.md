@@ -11,6 +11,10 @@
 - Instala para todos os usuários em `C:\Program Files\GLPI Desktop Client` (precisa de administrador ou SYSTEM).
 - Cria o atalho **GLPI Desktop Client** no Menu Iniciar.
 - Faz o app iniciar com o Windows, na bandeja (`HKLM\Software\Microsoft\Windows\CurrentVersion\Run`).
+- Registra o protocolo `glpidesktop://` (`HKLM\Software\Classes\glpidesktop`, a partir da 0.13.0): o
+  clique numa notificação do app abre o chamado, mesmo pela Central de Notificações ou com o app
+  fechado. O app só aceita os endereços das próprias notificações (`chamado/<número>`, lista e avisos
+  da TI) e só abre telas dele; o que cada usuário vê continua decidido pelo GLPI.
 - Aparece em "Aplicativos instalados" como **GLPI Desktop Client** com a versão.
 
 O instalador **não tem assinatura digital**. Ao executar à mão, o Windows pode mostrar "O Windows
@@ -50,7 +54,7 @@ GLPI-Desktop-Client-Setup-0.3.1.exe /S /GLPI_URL=https://glpi.exemplo.com.br
 Os valores vão para `HKLM\SOFTWARE\GlpiDesktopClient`. Uma atualização sem parâmetros mantém o que já
 estava gravado. Se o valor tiver espaços, use aspas: `/GLPI_URL="https://glpi.exemplo.com.br"`.
 
-O pacote `.msi` não aceita esses parâmetros: para configurar a máquina com ele, use a GPO ou o `config.json`.
+O instalador publicado é só o `GLPI-Desktop-Client-Setup-<versão>.exe` (NSIS), que aceita todos esses parâmetros.
 
 ### Nome do aplicativo
 
@@ -184,6 +188,36 @@ Rode o instalador novo da mesma forma, por cima do anterior. Feche o app antes
 (`taskkill /im "GLPI Desktop Client.exe" /f`); o script PowerShell já faz isso. A configuração
 da máquina e os dados dos usuários são mantidos. App e plugin vêm juntos em cada release: atualize o
 plugin no servidor junto.
+
+Para abrir o app depois da atualização sem mostrar a janela (a partir da 0.13.0), rode na sessão do
+usuário `"C:\Program Files\GLPI Desktop Client\GLPI Desktop Client.exe" --minimizado`: ele fica só na
+bandeja, com os avisos e a verificação de novidades ligados. Se o app já estiver aberto para aquele
+usuário, não abre outro. `--fechar` encerra o app aberto do usuário (como **Fechar** na bandeja).
+
+### Atualização por RMM com o app reaberto
+
+[`deploy/powershell/Atualizar-GlpiDesktopClient.ps1`](../deploy/powershell/Atualizar-GlpiDesktopClient.ps1)
+roda como SYSTEM (Tactical RMM, Intune, GPO de inicialização) e:
+
+1. sai sem fazer nada se a versão pedida já estiver instalada (`-Forcar` reinstala);
+2. baixa o instalador (`https://` ou caminho de rede) e confere o SHA-256;
+3. fecha o app em todas as sessões: primeiro pedindo para fechar (`--fechar`, a partir da 0.13.0) e,
+   se não fechar em 10 s, à força;
+4. instala com `/S` e confere o código de saída do instalador e a versão instalada (registro e arquivo);
+5. abre o app com `--minimizado` para cada usuário com sessão ativa, por uma tarefa agendada temporária
+   que roda como o usuário, sem privilégio elevado, e é apagada em seguida. Sem ninguém logado (ou com
+   a sessão desconectada), não abre: o app sobe no próximo logon.
+
+```powershell
+.\Atualizar-GlpiDesktopClient.ps1 -Versao 0.13.0 -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
+  -Instalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.13.0/GLPI-Desktop-Client-Setup-0.13.0.exe" `
+  -ArgumentosInstalador '/GLPI_URL=https://glpi.exemplo.com.br'
+```
+
+Código de saída: `0` ok (ou já estava na versão), `1` erro antes de instalar (download ou SHA-256),
+`2` instalação não confirmada, `3` instalado, mas não reaberto para algum usuário. A última linha
+(`RESUMO:`) traz a versão anterior, a nova e para quem o app foi reaberto. Log completo em
+`C:\ProgramData\GlpiDesktopClient\logs\atualizar-<data>.log`.
 
 ## Desinstalação
 

@@ -27,6 +27,7 @@ O app lê a identidade ao abrir, já na tela de login, e guarda a última para a
 | **Cliente de API** | o cliente de API do GLPI (*Configurar → Geral → API*) que o app usa. **Obrigatório**, a não ser que todas as estações tenham o App-Token na configuração. O app recebe o App-Token dele depois que o usuário entra; a página nunca mostra o token |
 | Domínios do SSO | servidores que podem receber o login do Windows, separados por vírgula (ex.: `*.exemplo.com.br`). Vazio = só o endereço do GLPI, o que basta na maioria dos casos |
 | Intervalo de verificação | de quanto em quanto tempo o app procura novidades nos chamados (1 a 60 minutos) |
+| Permitir visualização em colunas | **Não** (padrão): o app mostra os chamados só em lista. **Sim**: perfis técnicos veem o botão **Lista \| Colunas** e podem organizar os chamados em uma coluna por status, arrastando entre elas. Vale na próxima vez que o app for aberto (plugin 0.16.0 ou mais novo) |
 
 Crie o cliente de API só para o app (ex.: "glpi-desktop") e preencha a **faixa de IP** das redes das
 estações: o App-Token sozinho não dá acesso a nada (a API ainda exige a chave do usuário), mas a faixa

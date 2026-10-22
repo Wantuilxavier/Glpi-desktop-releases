@@ -39,6 +39,9 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
 - **Novidades:** notificação do Windows e número no ícone da barra de tarefas e da bandeja.
 - **Tema:** na engrenagem (canto superior direito) — seguir o Windows, claro ou escuro, com ou sem as
   cores do GLPI.
+- **Tamanho do texto:** Ctrl + aumenta, Ctrl − diminui e Ctrl 0 volta a 100% (também com Ctrl e a
+  roda do mouse, ou na engrenagem, em **Tamanho do texto**). De 80% a 150%; a escolha fica salva para
+  o usuário do Windows neste computador.
 
 ## Sair e trocar de servidor
 
