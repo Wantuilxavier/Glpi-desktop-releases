@@ -3,6 +3,44 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.11.0] — 2026-10-22
+
+### App GLPI Desktop Client 0.11.0
+
+Usa o plugin **0.15.0** (as respostas prontas precisam dele; com plugin mais antigo, elas ficam
+indisponíveis e o resto do app funciona normalmente).
+
+#### Adicionado
+- **Respostas prontas com "/"** (perfis técnicos): no começo de uma linha da resposta, da solução
+  ou da tarefa, "/" abre a lista com os modelos de acompanhamento do GLPI da entidade do chamado e
+  as suas respostas pessoais. O texto depois da "/" filtra; setas e Enter inserem; Esc fecha.
+  `{requerente}`, `{numero}`, `{titulo}` e `{tecnico}` são trocados pelos dados do chamado.
+  "Salvar o texto atual como resposta pronta" e, na engrenagem, **Respostas prontas** para
+  renomear e excluir. As pessoais ficam no servidor e valem em qualquer computador.
+- **Cronômetro no chamado** (perfis técnicos): "Iniciar cronômetro" no cabeçalho, um ativo por
+  vez, continua com a janela fechada e com o app reiniciado; Pausar / Parar. Parar abre a Nova
+  tarefa com a duração arredondada para 5 minutos; ligado mais de 8 horas, pergunta a duração real.
+- **Ações em lote** (perfis técnicos): selecione vários chamados com Ctrl+clique, Shift+clique ou a
+  caixa no item e use **Atribuir…**, **Mudar status…**, **Adicionar observador…** ou **Adicionar
+  acompanhamento…** Um chamado por vez, com progresso, sem travar a tela; confirmação acima de
+  10 chamados; no fim, o resumo do que foi alterado e do que o GLPI recusou (e por quê).
+- **Visão em colunas** (perfis técnicos): botão **Lista | Colunas** no topo da lista; uma coluna
+  por status com a contagem. Arrastar um chamado muda o status, se o seu perfil permitir
+  (Pendente pede o motivo, Solucionado abre a solução); o clique abre o chamado à direita. A
+  escolha fica salva para o seu usuário.
+
+#### Corrigido
+- **Marcar tarefa como feita** na conversa do chamado: a caixinha da tarefa agora grava no GLPI
+  (perfis técnicos), e clicar de novo volta para "a fazer".
+- O **cabeçalho fixo** do chamado (ao rolar) não deixa mais o texto aparecer através dele.
+- A **caixa de resposta** fica sempre expandida, com a barra de formatação e os botões à vista.
+
+### Plugin glpidesktop 0.15.0
+
+#### Adicionado
+- Respostas prontas pessoais de cada usuário (tabela `glpi_plugin_glpidesktop_replies`, criada ao
+  atualizar o plugin) e os modelos de acompanhamento do GLPI já com os dados do chamado.
+
 ## [0.10.1] — 2026-10-22
 
 ### App GLPI Desktop Client 0.10.1
