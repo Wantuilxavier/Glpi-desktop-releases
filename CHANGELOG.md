@@ -3,6 +3,18 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.10.1] — 2026-10-22
+
+### App GLPI Desktop Client 0.10.1
+
+Usa o plugin 0.14.0 (sem mudança no plugin).
+
+#### Adicionado
+- **Visão "Todos os chamados"** no seletor de filtros (grupo "Meus chamados"): lista todos os
+  chamados que o perfil pode ver, sem restringir a quem abriu. Como nas demais visões sem status,
+  o **"Só em aberto"** continua valendo por cima (vem marcado, mostrando só os não solucionados;
+  desmarque para incluir solucionados e fechados).
+
 ## [0.10.0] — 2026-10-21
 
 ### App GLPI Desktop Client 0.10.0
