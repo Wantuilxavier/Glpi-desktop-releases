@@ -3,6 +3,31 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.10.0] — 2026-10-21
+
+### App GLPI Desktop Client 0.10.0
+
+Usa o plugin 0.14.0 (sem mudança no plugin).
+
+#### Adicionado
+- **Capturar tela por área, em qualquer monitor**, como a Ferramenta de Captura do Windows: uma
+  camada sobre cada monitor com a tela congelada; arrastar seleciona a área, as alças e as setas
+  ajustam (Alt+setas mudam o tamanho), Enter ou duplo clique anexa, **Tela inteira** pega o monitor
+  todo e Esc cancela.
+- **Gravar tela** (até 60 s, sem áudio, em MP4): escolhe uma área, a tela inteira ou uma
+  **janela**; a barra "Gravando 00:12 · Parar" e a moldura da área não aparecem no vídeo; ao parar,
+  prévia com **Anexar** e **Descartar**. A gravação usa uma sessão própria, que só libera o vídeo
+  da tela para a página do gravador.
+- **Capturar tela** e **Gravar tela** também na resposta e na solução do chamado, ao lado de
+  "Anexar arquivo" (anexam direto ao chamado).
+
+#### Corrigido
+- Faixa de Avisos da TI no catálogo: fica no topo do catálogo, com a mesma largura e margens do
+  conteúdo (antes virava uma coluna ao lado).
+- Lista "Avisos da TI": abre também a partir do catálogo; rodapé no fim do painel e o mesmo espaço
+  entre os cartões; o aviso amarelo voltou a ter ícone e fundo.
+- Trocar de visão (Meus chamados / Novo chamado) fecha o painel lateral aberto.
+
 ## [0.9.0] — 2026-10-21
 
 ### App GLPI Desktop Client 0.9.0
