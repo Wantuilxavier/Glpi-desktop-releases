@@ -3,6 +3,62 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.16.0] — 2026-10-23
+
+### App GLPI Desktop Client 0.16.0
+
+Usa o plugin **0.19.0**. Com o plugin 0.18.0: os anexos do chamado ficam numa lista no fim, como antes
+(sem saber em que acompanhamento estão, e só para perfis com o direito "Documento"), a gravação vai até
+60 segundos e o app não conhece o limite de tamanho do servidor; o resto funciona igual.
+
+#### Adicionado
+- **Ver anexos antes de enviar:** na resposta e no formulário, os anexos ficam numa lista com
+  miniatura (vídeo com o primeiro quadro, duração e se tem áudio). Clique para abrir no visualizador do
+  app: imagem com zoom (roda do mouse, + e −) e arrastar; vídeo com player, tempo, tamanho e áudio;
+  **Remover**, **Fechar**, Esc e as setas para passar de um anexo a outro.
+- **Ver anexos depois de enviados:** na linha do tempo, dentro do acompanhamento, da tarefa ou da
+  solução em que foram enviados; os do próprio chamado como entrada "Anexo". Abrem no mesmo
+  visualizador, e **Baixar** salva o arquivo.
+- **Áudio na gravação de tela:** em **Áudio** na barra, sem áudio, microfone, som do computador ou os
+  dois juntos. Com microfone, o nível ao vivo e, com mais de um, a escolha de qual usar. A escolha fica
+  guardada para o usuário. O microfone só é liberado enquanto a gravação com áudio está aberta; se ele
+  não abrir, a gravação segue sem ele e a barra avisa. Na gravação, um ícone mostra que há áudio.
+- **Limites do servidor na gravação:** a duração máxima vem do plugin (padrão 5 minutos) e a qualidade
+  do vídeo se ajusta para caber no maior arquivo que o GLPI aceita. A barra mostra o tempo máximo,
+  avisa "Perto do limite" e para a gravação antes de passar dele.
+- Arquivo maior que o limite do servidor é recusado ao anexar, com o tamanho dele e o limite.
+
+#### Alterado
+- **Barra da captura e da gravação no alto do monitor**, numa janela própria e móvel: arraste pela
+  alça (até para outro monitor) ou use as setas com a alça em foco; clique duplo volta ao alto. O app
+  lembra a posição por usuário. A barra sai de cima da área escolhida e não aparece no print nem no
+  vídeo.
+- **Janela:** as janelas abertas aparecem em miniatura logo abaixo da barra (clicar já escolhe; clique
+  duplo já captura), sem as janelas invisíveis. O print de janela sai na resolução real dela.
+- **Tela inteira** pergunta o monitor só quando há mais de um.
+- A gravação usa a mesma barra (tempo, tamanho, **Parar** e **Cancelar**) e o vídeo vai direto para a
+  lista de anexos, sem a prévia de antes.
+- Na resposta, **Anexar arquivo**, **Capturar** e **Gravar** não enviam mais na hora: os anexos esperam
+  na lista e vão junto com **Enviar resposta** ou **Salvar solução** (ligados ao acompanhamento ou à
+  solução, como no GLPI). Sem texto, vão para o chamado. Trocar de chamado e voltar não os perde.
+
+#### Corrigido
+- O botão "Janela…" e um painel vazio que apareciam na barra da captura.
+- Anexos do chamado que não apareciam para perfis sem o direito "Documento" (com o plugin 0.19.0).
+
+### Plugin glpidesktop 0.19.0
+
+Funciona com o app 0.15.0. Sem mudança no banco de dados.
+
+#### Adicionado
+- Anexos do chamado para o app, tirados da linha do tempo que o GLPI monta com a sessão do usuário: o
+  que ele não pode ver (acompanhamento privado, por exemplo) não vem, e cada anexo diz em que
+  acompanhamento, tarefa ou solução está. O arquivo o app baixa pelo próprio GLPI, que confere o acesso
+  pelo chamado.
+- Aba Conexão: **Duração máxima da gravação de tela** (1 a 30 minutos, padrão 5).
+- Limites da gravação para o app: a duração máxima e o maior arquivo que o GLPI aceita no momento (o
+  menor entre o tamanho máximo de documento do GLPI e os limites de upload do PHP).
+
 ## [0.15.0] — 2026-10-23
 
 ### App GLPI Desktop Client 0.15.0

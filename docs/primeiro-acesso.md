@@ -33,7 +33,8 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
   filtro" grava nas pesquisas salvas do GLPI: o filtro aparece em outros computadores e no GLPI web.
   No menu "⋯" do filtro: editar, renomear, definir como padrão (o app abre nele) e excluir.
 - **Abrir um chamado:** aba **Novo chamado**, com os formulários do GLPI que o usuário pode responder.
-  O rascunho é salvo sozinho até o envio, e dá para anexar arquivos ou uma captura de tela.
+  O rascunho é salvo sozinho até o envio, e dá para anexar arquivos, capturas e gravações de tela
+  (veja [Capturar, gravar e ver anexos](#capturar-gravar-e-ver-anexos)).
 - **Responder:** no chamado aberto, com texto formatado, imagens coladas e anexos. Na lateral, cada
   perfil altera só o que pode alterar na tela do GLPI (direitos do perfil e modelo de chamado).
 - **Colocar em pendência** (perfis técnicos): ao mudar o status para Pendente, escolha o motivo de
@@ -46,6 +47,38 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
 - **Tamanho do texto:** Ctrl + aumenta, Ctrl − diminui e Ctrl 0 volta a 100% (também com Ctrl e a
   roda do mouse, ou na engrenagem, em **Tamanho do texto**). De 80% a 150%; a escolha fica salva para
   o usuário do Windows neste computador.
+
+## Capturar, gravar e ver anexos
+
+Na resposta do chamado e nos campos de anexo do formulário há **Anexar arquivo**, **Capturar tela** e
+**Gravar tela**.
+
+- **Capturar tela** e **Gravar tela** escondem o app e abrem uma barra no alto do monitor. Escolha o
+  que entra:
+  - **Área:** arraste na tela; ajuste pelas bordas ou com as setas;
+  - **Tela inteira:** com mais de um monitor, a barra pergunta qual;
+  - **Janela:** escolha a janela pela miniatura (clique duplo já captura).
+
+  Depois, **Capturar** (ou **Gravar**) ou Enter; **Cancelar** ou Esc desiste. A barra não aparece no
+  print nem no vídeo. Para tirá-la do caminho, arraste pela alça (os pontinhos à esquerda), até para
+  outro monitor; o app lembra o lugar. Clique duplo na alça volta ao alto.
+- **Áudio da gravação:** em **Áudio** na barra, escolha **Sem áudio**, **Microfone**, **Som do
+  computador** ou os dois. Com microfone, o painel mostra o nível (fale para testar) e, se houver mais
+  de um, qual usar. O app lembra a escolha. O som do computador inclui tudo o que tocar nele durante a
+  gravação. O app só usa o microfone enquanto a gravação com áudio está aberta.
+- **Gravando:** a barra mostra o tempo, o tempo máximo (definido pela TI; normalmente 5 minutos), o
+  tamanho e um ícone quando há áudio. **Parar** ou Enter termina; **Cancelar** ou Esc descarta o
+  vídeo. Perto do tamanho máximo que o servidor aceita aparece "Perto do limite", e a gravação para
+  sozinha antes de passar dele.
+- **Antes de enviar:** os anexos ficam numa lista com miniatura (o vídeo mostra a duração e se tem
+  áudio). Clique num deles para ver em tamanho grande: imagem com zoom (roda do mouse, + e −) e
+  arrastar; vídeo com o player. As setas passam de um anexo para outro, **Remover** tira da lista e Esc
+  fecha. Na resposta, os anexos vão junto com **Enviar resposta** (ou **Salvar solução**); trocar de
+  chamado e voltar não os perde.
+- **Depois de enviados:** os anexos aparecem na linha do tempo, dentro do acompanhamento, da tarefa ou
+  da solução em que foram enviados; os do próprio chamado aparecem como "Anexo". Clique para ver no
+  app ou em **Baixar**.
+- Arquivo maior que o limite do servidor é recusado na hora, com o tamanho dele e o limite.
 
 ## Sair e trocar de servidor
 
