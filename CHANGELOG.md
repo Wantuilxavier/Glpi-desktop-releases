@@ -3,6 +3,46 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.15.0] — 2026-10-23
+
+### App GLPI Desktop Client 0.15.0
+
+Usa o plugin **0.18.0**. Com o plugin 0.17.0, colocar em pendência com motivo e sem acompanhamento cria
+um acompanhamento automático "Chamado pendente: <motivo>", como antes; o resto funciona igual.
+
+#### Adicionado
+- **Motivo de pendência:** ao mudar o status para Pendente, o técnico escolhe o motivo cadastrado no
+  GLPI (o motivo padrão do GLPI já vem escolhido; "Sem motivo" também vale) e escreve um acompanhamento
+  opcional, com o mesmo editor da resposta. Se o motivo tiver lembretes automáticos, o diálogo mostra
+  numa linha como eles vão funcionar (por exemplo, "Lembrete a cada 2 dias; solucionado automaticamente
+  após 3 lembretes"). Sem motivos cadastrados, o diálogo funciona só com o acompanhamento. Vale também
+  na mudança de status em lote.
+- O motivo aparece ao lado do status no cabeçalho do chamado e no painel Detalhes, para o técnico e
+  para o requerente. Ao sair de Pendente, o GLPI apaga o motivo, como na tela dele.
+
+#### Alterado
+- **Tema escuro novo ("Azul-noite suave"):** fundos e painéis em azul-acinzentado mais claro, texto e
+  bordas com mais contraste, selos de status e blocos da linha do tempo com cores novas. O tema claro e
+  o amarelo de destaque não mudam. Todos os pares de texto e fundo passam de 4,5:1 (bordas e foco, 3:1).
+- **Chamado centralizado:** cabeçalho, linha do tempo e caixa de resposta formam uma coluna de até
+  960 px, centralizada entre a lista e o painel Detalhes (antes, 880 px alinhados à esquerda, com um
+  espaço vazio grande em telas largas). Com menos espaço, a coluna ocupa a largura toda.
+- Tabelas e blocos de código largos nos acompanhamentos rolam na horizontal dentro da coluna, em vez
+  de espremer o texto.
+
+### Plugin glpidesktop 0.18.0
+
+Funciona com o app 0.14.0. Sem mudança no banco de dados.
+
+#### Adicionado
+- Colocar o chamado em Pendente com o motivo sem escrever acompanhamento (o GLPI não aceita
+  acompanhamento vazio pela API). O plugin confere se o perfil pode mudar o status do chamado para
+  Pendente e se o motivo vale para a entidade do chamado; grava o motivo e os lembretes automáticos
+  como o GLPI grava.
+- A lista de motivos de pendência e o motivo atual do chamado vêm do plugin, também para perfis sem o
+  direito de ler motivos de pendência (a maioria dos perfis técnicos e o Self-Service), com a
+  descrição dos lembretes automáticos de cada motivo.
+
 ## [0.14.0] — 2026-10-22
 
 ### App GLPI Desktop Client 0.14.0

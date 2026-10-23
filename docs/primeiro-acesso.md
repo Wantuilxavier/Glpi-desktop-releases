@@ -36,6 +36,10 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
   O rascunho é salvo sozinho até o envio, e dá para anexar arquivos ou uma captura de tela.
 - **Responder:** no chamado aberto, com texto formatado, imagens coladas e anexos. Na lateral, cada
   perfil altera só o que pode alterar na tela do GLPI (direitos do perfil e modelo de chamado).
+- **Colocar em pendência** (perfis técnicos): ao mudar o status para Pendente, escolha o motivo de
+  pendência cadastrado no GLPI (ou "Sem motivo") e, se quiser, escreva um acompanhamento para o
+  requerente. Se o motivo tiver lembretes automáticos, o app mostra como eles vão funcionar. O motivo
+  aparece ao lado do status, também para o requerente.
 - **Novidades:** notificação do Windows e número no ícone da barra de tarefas e da bandeja.
 - **Tema:** na engrenagem (canto superior direito) — seguir o Windows, claro ou escuro, com ou sem as
   cores do GLPI.

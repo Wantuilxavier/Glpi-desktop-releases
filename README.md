@@ -49,7 +49,7 @@ Conferir o arquivo baixado:
 
 ```powershell
 # Windows: compare o resultado com a linha do arquivo em SHA256SUMS.txt
-Get-FileHash .\GLPI-Desktop-Client-Setup-0.14.0.exe -Algorithm SHA256
+Get-FileHash .\GLPI-Desktop-Client-Setup-0.15.0.exe -Algorithm SHA256
 ```
 
 ```bash
@@ -61,6 +61,9 @@ sha256sum -c SHA256SUMS.txt --ignore-missing
 
 | Plugin | App | GLPI | PHP |
 |---|---|---|---|
+| 0.18.0 | 0.15.0 | 11.0.x | 8.2 ou mais novo |
+| 0.18.0 | 0.14.0 | 11.0.x | 8.2 ou mais novo |
+| 0.17.0 | 0.15.0 | 11.0.x | 8.2 ou mais novo |
 | 0.17.0 | 0.14.0 | 11.0.x | 8.2 ou mais novo |
 | 0.17.0 | 0.13.1 | 11.0.x | 8.2 ou mais novo |
 | 0.16.1 | 0.13.1 | 11.0.x | 8.2 ou mais novo |
@@ -95,14 +98,14 @@ No servidor do GLPI 11, como root. Ajuste `GLPI` para a pasta do seu GLPI e `www
 do servidor web (no Debian/Ubuntu é `www-data`; no RHEL e derivados, `apache` ou `nginx`).
 
 ```bash
-VERSAO=0.17.0
+VERSAO=0.18.0
 GLPI=/var/www/glpi
-BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.14.0
+BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.15.0
 
 cd /tmp
 curl -fLO "$BASE/glpidesktop-$VERSAO.tar.bz2"
 curl -fLO "$BASE/SHA256SUMS.txt"
-sha256sum -c SHA256SUMS.txt --ignore-missing      # deve mostrar "glpidesktop-0.17.0.tar.bz2: OK" (ou "SUCESSO")
+sha256sum -c SHA256SUMS.txt --ignore-missing      # deve mostrar "glpidesktop-0.18.0.tar.bz2: OK" (ou "SUCESSO")
 
 tar -xjf "glpidesktop-$VERSAO.tar.bz2" -C "$GLPI/plugins/"
 chown -R www-data:www-data "$GLPI/plugins/glpidesktop"
