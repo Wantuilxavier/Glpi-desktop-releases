@@ -49,7 +49,7 @@ Conferir o arquivo baixado:
 
 ```powershell
 # Windows: compare o resultado com a linha do arquivo em SHA256SUMS.txt
-Get-FileHash .\GLPI-Desktop-Client-Setup-0.16.0.exe -Algorithm SHA256
+Get-FileHash .\GLPI-Desktop-Client-Setup-0.16.2.exe -Algorithm SHA256
 ```
 
 ```bash
@@ -61,6 +61,8 @@ sha256sum -c SHA256SUMS.txt --ignore-missing
 
 | Plugin | App | GLPI | PHP |
 |---|---|---|---|
+| 0.19.0 | 0.16.2 | 11.0.x | 8.2 ou mais novo |
+| 0.19.0 | 0.16.1 | 11.0.x | 8.2 ou mais novo |
 | 0.19.0 | 0.16.0 | 11.0.x | 8.2 ou mais novo |
 | 0.19.0 | 0.15.0 | 11.0.x | 8.2 ou mais novo |
 | 0.18.0 | 0.16.0 | 11.0.x | 8.2 ou mais novo |
@@ -103,7 +105,7 @@ do servidor web (no Debian/Ubuntu é `www-data`; no RHEL e derivados, `apache` o
 ```bash
 VERSAO=0.19.0
 GLPI=/var/www/glpi
-BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.16.0
+BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.16.2
 
 cd /tmp
 curl -fLO "$BASE/glpidesktop-$VERSAO.tar.bz2"

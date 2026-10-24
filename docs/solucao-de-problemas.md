@@ -15,11 +15,13 @@
 | Não vejo os chamados do meu grupo | o perfil ativo não tem permissão para ver chamados do grupo, ou o usuário não está no grupo | troque de perfil no cabeçalho do app (se tiver mais de um) ou ajuste o perfil no GLPI |
 | O ícone ou a logo não mudou | o app confere na próxima conexão; o atalho do Menu Iniciar de todos os usuários não muda | feche e abra o app; ícone do instalador e de "Aplicativos instalados" não mudam por natureza |
 | "Trocar servidor" não aparece | o administrador travou o servidor (`lockServer`) | esperado; quem define o servidor é a configuração da máquina |
+| O app parou de carregar os chamados depois de trocar de usuário (e antes apareceu "A JavaScript error occurred in the main process") | token ou configuração corrompida gerou um valor de cabeçalho inválido — corrigido na 0.16.1; desde a 0.16.2 o app ainda tenta se recuperar sozinho de uma falha momentânea | atualize o app para 0.16.2 ou mais novo; se o aviso aparecer mesmo assim, clique em **Sair** e entre de novo; se persistir, use "Enviar diagnóstico" |
 
 ## Logs na estação
 
 - Log do app, por usuário: `%APPDATA%\GLPI Desktop Client\logs\glpi-desktop-client.log` (sem senhas
-  nem tokens). Ao pedir ajuda, envie só as linhas do erro.
+  nem tokens). Ao pedir ajuda, envie só as linhas do erro. Desde a 0.16.1, erros inesperados do app
+  também são registrados aí (linha `erro inesperado`), em vez de só aparecerem numa caixa.
 - Configuração da máquina: `reg query HKLM\SOFTWARE\GlpiDesktopClient`,
   `reg query HKLM\SOFTWARE\Policies\GlpiDesktopClient` e
   `C:\ProgramData\GlpiDesktopClient\config.json`.

@@ -3,6 +3,35 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.16.2] — 2026-10-24
+
+### App GLPI Desktop Client 0.16.2
+
+Usa o mesmo plugin **0.19.0** da 0.16.0 (correção só no app).
+
+#### Corrigido
+- **O app se recupera sozinho de uma falha momentânea de comunicação.** Quando uma resposta do
+  servidor chegava corrompida ou cortada, um dado da sessão ficava inválido e, na 0.16.1, isso virava
+  um erro que pedia para entrar de novo. Agora o app descarta a sessão com defeito e tenta mais uma
+  vez automaticamente; só avisa de erro se falhar de novo. Para o usuário, o que antes exigia
+  reentrar costuma passar despercebido.
+
+## [0.16.1] — não publicada isoladamente (correções incluídas na 0.16.2)
+
+### App GLPI Desktop Client 0.16.1
+
+Usa o mesmo plugin **0.19.0** da 0.16.0 (correção só no app).
+
+#### Corrigido
+- **O app não fecha mais com a caixa "A JavaScript error occurred in the main process".** Em
+  situações raras — por exemplo ao trocar de usuário, com uma configuração de token corrompida —, um
+  valor inválido de cabeçalho derrubava o processo principal e o app parava de carregar os chamados
+  (clicar num chamado não abria nada). Agora esse caso vira um erro tratado, o app continua funcionando
+  e pede para entrar de novo.
+- **Erros inesperados do app passam a ser registrados no log** (`%APPDATA%\GLPI Desktop Client\logs`),
+  com um aviso discreto no lugar da antiga caixa de erro, para facilitar o diagnóstico com "Enviar
+  diagnóstico".
+
 ## [0.16.0] — 2026-10-23
 
 ### App GLPI Desktop Client 0.16.0
