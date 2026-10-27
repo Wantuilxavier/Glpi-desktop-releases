@@ -3,6 +3,43 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.17.0] — 2026-10-27
+
+### App GLPI Desktop Client 0.17.0
+
+Requer o plugin **0.20.0** para o selo "Fechado pelo sistema"; com o plugin 0.19.0 o app funciona e só
+deixa de mostrar o selo da solução em chamado fechado.
+
+#### Alterado
+- **Aviso de novidade na barra de tarefas como no Telegram.** O número de não lidas não acende e apaga
+  mais sem parar: fica fixo. Quando chega uma novidade com o app fora de foco, o botão do app pisca na
+  barra de tarefas na cor de aviso do Windows (vermelho no Windows 11, laranja no Windows 10) algumas
+  vezes e depois fica destacado até você abrir o app.
+- **Solução de chamado fechado pelo sistema.** Quando o requerente não aprova nem recusa a solução e o
+  GLPI fecha o chamado sozinho depois do prazo, a solução deixa de aparecer como "Aguardando aprovação":
+  mostra o selo **Fechado pelo sistema** e a frase "O prazo para aprovar ou recusar esta solução
+  terminou e o sistema fechou o chamado automaticamente em DD/MM/AAAA." Se foi uma pessoa que fechou,
+  o selo é **Fechado** e a frase diz que o chamado foi fechado antes da aprovação.
+
+### Plugin glpidesktop 0.20.0
+
+#### Adicionado
+- O painel do chamado informa se o chamado fechado foi fechado pela tarefa automática do GLPI (pelo
+  histórico do chamado) e a data do fechamento. Sem mudança no banco; atualizar com
+  `plugin:install --force` + `plugin:activate`, como nas versões anteriores.
+
+## [0.16.3] — não publicada isoladamente (correção incluída na 0.17.0)
+
+### App GLPI Desktop Client 0.16.3
+
+Usa o mesmo plugin **0.19.0** da 0.16.0 (correção só no app).
+
+#### Corrigido
+- **Adicionar solução pelo app voltou a funcionar.** Desde a 0.16.0, ao clicar em **Adicionar** na
+  solução, aparecia "O GLPI não aceitou a solução. Cannot access 'pendentes' before initialization" e
+  nada era gravado, em qualquer status do chamado. O erro era do app (antes de falar com o GLPI), não
+  uma regra do GLPI. Até atualizar, a solução pode ser adicionada pelo navegador.
+
 ## [0.16.2] — 2026-10-24
 
 ### App GLPI Desktop Client 0.16.2

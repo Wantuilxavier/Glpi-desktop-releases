@@ -41,7 +41,7 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
   pendência cadastrado no GLPI (ou "Sem motivo") e, se quiser, escreva um acompanhamento para o
   requerente. Se o motivo tiver lembretes automáticos, o app mostra como eles vão funcionar. O motivo
   aparece ao lado do status, também para o requerente.
-- **Novidades:** notificação do Windows e número no ícone da barra de tarefas e da bandeja.
+- **Novidades:** notificação do Windows, número no ícone da barra de tarefas e da bandeja e o botão do app piscando na barra de tarefas, na cor de aviso do Windows (vermelho no Windows 11, laranja no Windows 10): pisca algumas vezes e depois fica destacado até você abrir o app.
 - **Tema:** na engrenagem (canto superior direito) — seguir o Windows, claro ou escuro, com ou sem as
   cores do GLPI.
 - **Tamanho do texto:** Ctrl + aumenta, Ctrl − diminui e Ctrl 0 volta a 100% (também com Ctrl e a

@@ -16,6 +16,7 @@
 | O ícone ou a logo não mudou | o app confere na próxima conexão; o atalho do Menu Iniciar de todos os usuários não muda | feche e abra o app; ícone do instalador e de "Aplicativos instalados" não mudam por natureza |
 | "Trocar servidor" não aparece | o administrador travou o servidor (`lockServer`) | esperado; quem define o servidor é a configuração da máquina |
 | O app parou de carregar os chamados depois de trocar de usuário (e antes apareceu "A JavaScript error occurred in the main process") | token ou configuração corrompida gerou um valor de cabeçalho inválido — corrigido na 0.16.1; desde a 0.16.2 o app ainda tenta se recuperar sozinho de uma falha momentânea | atualize o app para 0.16.2 ou mais novo; se o aviso aparecer mesmo assim, clique em **Sair** e entre de novo; se persistir, use "Enviar diagnóstico" |
+| Ao adicionar solução aparece "O GLPI não aceitou a solução. Cannot access 'pendentes' before initialization" | erro do app nas versões 0.16.0 a 0.16.2 (a solução não chegava ao GLPI) — corrigido na 0.16.3 | atualize o app para 0.16.3 ou mais novo; até lá, adicione a solução pelo navegador (**Abrir no navegador**) |
 
 ## Logs na estação
 
