@@ -31,6 +31,11 @@ O app lê a identidade ao abrir, já na tela de login, e guarda a última para a
 | Registrar novidades dos chamados para o app | **Sim** (padrão): o GLPI anota cada mudança em chamado e o app 0.14.0 ou mais novo pergunta só o que mudou, numa consulta leve. **Não**: o app volta a buscar os chamados a cada verificação, com mais carga no banco. A tarefa automática **limpezaEventos** apaga as anotações com mais de 7 dias (plugin 0.17.0 ou mais novo) |
 | Permitir visualização em colunas | **Não** (padrão): o app mostra os chamados só em lista. **Sim**: perfis técnicos veem o botão **Lista \| Colunas** e podem organizar os chamados em uma coluna por status, arrastando entre elas. Vale na próxima vez que o app for aberto (plugin 0.16.0 ou mais novo) |
 | Duração máxima da gravação de tela | de 1 a 30 minutos (padrão: 5). O app 0.16.0 ou mais novo para a gravação nesse tempo e ajusta a qualidade do vídeo para ele caber no **Tamanho máximo de arquivos de documento** do GLPI (*Configurar → Geral → Gerência*) e no limite de upload do PHP (`upload_max_filesize` e `post_max_size`); se o vídeo chegar perto do limite, a gravação para antes. Arquivos maiores que esse limite são recusados no app, com aviso. Vale na próxima gravação (plugin 0.19.0 ou mais novo) |
+| Janela de abertura | **Não** (padrão): o app sempre abre minimizado, na bandeja. **Sim**: nas primeiras aberturas (escolha **Quantas vezes**, de 1 a 5) o app 0.18.0 ou mais novo aparece com a janela visível e uma **Mensagem** de boas-vindas, para o usuário conhecer o app; depois volta ao normal. O **Público** (entidades, localizações, grupos e perfis) limita quem vê a janela — vazio = todos, as regras são as mesmas dos avisos. A conta é por usuário, logo depois do login (plugin 0.21.0 ou mais novo) |
+
+![Aba Conexão, com as seções Servidor, Ritmo e eventos e Recursos do app e valores de exemplo](imagens/configuracao-conexao.png)
+
+![Seção "Janela de abertura" da aba Conexão: ativar, quantas vezes, mensagem e o Público (entidades, localizações, grupos e perfis)](imagens/configuracao-janela-abertura.png)
 
 Crie o cliente de API só para o app (ex.: "glpi-desktop") e preencha a **faixa de IP** das redes das
 estações: o App-Token sozinho não dá acesso a nada (a API ainda exige a chave do usuário), mas a faixa
@@ -79,6 +84,13 @@ essa opção estiver ativada, ou mostra uma mensagem pedindo para verificar a re
 Mostra a última versão publicada nas Releases e os comandos prontos com o endereço do seu GLPI:
 instalação silenciosa, script PowerShell e valores de registro para GPO. Detalhes em
 [Instalação nas estações](instalacao-estacoes.md).
+
+Desde o plugin 0.21.0, o **Gerador de comando** monta o comando de instalação silenciosa com as
+opções que você escolhe — nome do atalho no Menu Iniciar, trava de servidor (`/LOCK_SERVER=1`) e
+instalação silenciosa (`/S`) — já com o endereço do GLPI da aba Conexão, com prévia ao vivo e botão
+**Copiar**. O App-Token não entra no comando: o app recebe o do cliente de API depois do login.
+
+![Gerador de comando da aba Instalador: nome do atalho, opções (/S, /LOCK_SERVER) e a prévia do comando](imagens/configuracao-instalador-gerador.png)
 
 ## Ícone
 

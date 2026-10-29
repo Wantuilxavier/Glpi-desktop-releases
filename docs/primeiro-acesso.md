@@ -22,6 +22,11 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
 
 ## Usar
 
+- **Janela de boas-vindas:** se a TI ativar, nas primeiras vezes que você abre o app ele aparece
+  na tela (em vez de ir direto para a bandeja) com uma mensagem de apresentação. Clique em
+  **Entendi** para começar a usar; depois de algumas vezes ele para de aparecer.
+
+  ![Janela de boas-vindas do app, com uma mensagem de apresentação e o botão "Entendi"](imagens/janela-boas-vindas-claro.png)
 - **Meus chamados:** o seletor no topo da lista tem visões prontas:
   - para todos: Abertos por mim, Meus pendentes, Meus solucionados (30 dias), Aguardando minha
     aprovação e Observando;

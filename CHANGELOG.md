@@ -3,7 +3,40 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
-## [0.17.0] — 2026-10-27
+## [0.18.0] — 2026-10-29
+
+### App GLPI Desktop Client 0.18.0
+
+Requer o plugin **0.21.0** para a janela de abertura; com o plugin 0.20.0 o app funciona e esse
+recurso fica desligado.
+
+#### Adicionado
+- **Janela de abertura.** Nas primeiras vezes que o app abre, ele pode aparecer com a janela visível
+  e uma mensagem de boas-vindas (botão "Entendi"), em vez de ir direto para a bandeja — para quem
+  ainda não conhece o app. A TI liga isso, escolhe quantas vezes aparece (até 5), a mensagem e para
+  quem (por entidade, localização, grupo ou perfil) na aba Conexão do plugin.
+
+#### Interno
+- Lint mais rígido no código das telas (ESLint `no-use-before-define` e `no-shadow`), que teria
+  pego o erro corrigido na 0.16.3. Sem mudança visível para o usuário.
+
+### Plugin glpidesktop 0.21.0
+
+Sem mudança no banco; atualizar com `plugin:install --force` + `plugin:activate`, como nas versões
+anteriores.
+
+#### Adicionado
+- **Janela de abertura** (aba Conexão): ligar/desligar, quantas vezes aparece, a mensagem e o
+  **Público** (entidades, localizações, grupos e perfis) de quem a vê. Novo endpoint para o app.
+- **Gerador de comando do instalador** (aba Instalador): monta o comando de instalação silenciosa
+  pronto para copiar, com o nome do atalho do Menu Iniciar, a trava de servidor e o endereço do GLPI.
+
+#### Alterado
+- A aba **Conexão** foi reagrupada em seções (Servidor, Ritmo e eventos, Recursos do app, Versão e
+  diagnóstico, Janela de abertura), aproveitando melhor a largura da tela.
+- As listas de **Público** dos avisos passam a usar o dropdown padrão do GLPI, com busca e paginação.
+
+## [0.17.0] — não publicada
 
 ### App GLPI Desktop Client 0.17.0
 
@@ -28,7 +61,7 @@ deixa de mostrar o selo da solução em chamado fechado.
   histórico do chamado) e a data do fechamento. Sem mudança no banco; atualizar com
   `plugin:install --force` + `plugin:activate`, como nas versões anteriores.
 
-## [0.16.3] — não publicada isoladamente (correção incluída na 0.17.0)
+## [0.16.3] — não publicada
 
 ### App GLPI Desktop Client 0.16.3
 
