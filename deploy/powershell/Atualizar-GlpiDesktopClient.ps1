@@ -20,8 +20,14 @@
 
   Codigos de saida: 0 ok (ou ja estava na versao) | 1 erro antes de instalar (download, SHA-256,
   parametros) | 2 instalacao falhou ou nao confirmada | 3 instalado, mas nao reabriu para algum usuario.
-  Log: %ProgramData%\GlpiDesktopClient\logs\atualizar-<data>.log (o instalador NSIS nao grava log
-  proprio; o codigo de saida dele fica neste log).
+  Log: %windir%\Logs\GlpiDesktopClient\atualizar-<data>.log (o instalador NSIS nao grava log
+  proprio; o codigo de saida dele fica neste log). Usuarios comuns so leem essa pasta.
+
+  Seguranca (0.19.0): o instalador e baixado numa pasta nova e aleatoria na Temp do SYSTEM, com
+  permissao so para SYSTEM e Administradores, e conferido ali. Antes ficava em
+  %ProgramData%\GlpiDesktopClient\atualizacao, que qualquer usuario consegue criar antes (e virar
+  dono), trocando o .exe entre a conferencia do SHA-256 e a execucao como SYSTEM. /APP_TOKEN= nao
+  vai para o log.
 
   Sem senha, chave ou token: o instalador vem de uma URL publica (ou caminho de rede) e e conferido
   pelo SHA-256.
@@ -54,9 +60,8 @@ $ChavesUninst = @(
     'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*',
     'HKLM:\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*'
 )
-$PastaBase    = Join-Path $env:ProgramData 'GlpiDesktopClient'
-$PastaLog     = Join-Path $PastaBase 'logs'
-$PastaTemp    = Join-Path $PastaBase 'atualizacao'
+$PastaLog     = Join-Path $env:windir 'Logs\GlpiDesktopClient'   # Usuarios: so leitura (herda de C:\Windows\Logs)
+$PastaTempBase = Join-Path $env:windir 'Temp'                     # Temp do SYSTEM; a pasta do download e nova a cada vez
 $PrefixoTarefa = 'GLPI Desktop Client - '
 $MinimoFecharEducado = '0.13.0'                           # primeira versao com --fechar
 # ----------------------------------
@@ -65,13 +70,28 @@ $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-New-Item -ItemType Directory -Force -Path $PastaLog, $PastaTemp | Out-Null
+New-Item -ItemType Directory -Force -Path $PastaLog | Out-Null
 $ArquivoLog = Join-Path $PastaLog ('atualizar-{0}.log' -f (Get-Date -Format 'yyyyMMdd-HHmmss'))
 
 function Log([string] $texto) {
     $linha = '{0} {1}' -f (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'), $texto
     Add-Content -Path $ArquivoLog -Value $linha -Encoding UTF8
     Write-Output $texto
+}
+
+# Pasta nova, de nome aleatorio, so para SYSTEM e Administradores (sem heranca): ninguem mais grava ou
+# troca o que estiver nela. Devolve o caminho; falha se nao conseguir fechar as permissoes.
+function New-PastaSegura {
+    $p = Join-Path $PastaTempBase ('GlpiDesktopClient-' + [guid]::NewGuid().ToString('N'))
+    New-Item -ItemType Directory -Path $p | Out-Null
+    & icacls.exe $p /inheritance:r /grant:r '*S-1-5-18:(OI)(CI)F' '*S-1-5-32-544:(OI)(CI)F' | Out-Null
+    if ($LASTEXITCODE -ne 0) { Remove-Item $p -Force -ErrorAction SilentlyContinue; throw "nao foi possivel proteger $p (icacls $LASTEXITCODE)" }
+    return $p
+}
+
+# Argumentos para o log, sem o valor do App-Token.
+function Hide-Segredos([string] $texto) {
+    return ($texto -replace '(?i)(/APP_TOKEN=)("[^"]*"|\S+)', '$1***')
 }
 
 # Sessoes do Windows (WTS): id, estado, usuario. Nao depende do idioma (quser depende).
@@ -203,7 +223,8 @@ try {
     }
 
     # 2. Instalador + SHA-256
-    $destino = Join-Path $PastaTemp ("GLPI-Desktop-Client-Setup-{0}-{1}.exe" -f $Versao, [guid]::NewGuid().ToString('N').Substring(0, 8))
+    $PastaTemp = New-PastaSegura
+    $destino = Join-Path $PastaTemp ("GLPI-Desktop-Client-Setup-{0}.exe" -f $Versao)
     try {
         if ($Instalador -match '^https://') {
             Log "Baixando $Instalador"
@@ -218,7 +239,7 @@ try {
         if ($hash -ne $Sha256.ToUpperInvariant()) { throw "SHA-256 nao confere (esperado $($Sha256.ToUpperInvariant()), obtido $hash)" }
         Log 'SHA-256 conferido.'
     } catch {
-        Remove-Item $destino -Force -ErrorAction SilentlyContinue
+        if ($PastaTemp) { Remove-Item $PastaTemp -Recurse -Force -ErrorAction SilentlyContinue }
         Log "ERRO antes de instalar: $($_.Exception.Message)"
         exit 1
     }
@@ -229,9 +250,9 @@ try {
     # 4. Instala e confere
     $etapa = 'instalacao'
     $argumentos = ('/S ' + $ArgumentosInstalador).Trim()
-    Log "Instalando: $(Split-Path $destino -Leaf) $argumentos"
+    Log "Instalando: $(Split-Path $destino -Leaf) $(Hide-Segredos $argumentos)"
     $proc = Start-Process -FilePath $destino -ArgumentList $argumentos -Wait -PassThru
-    Remove-Item $destino -Force -ErrorAction SilentlyContinue
+    Remove-Item $PastaTemp -Recurse -Force -ErrorAction SilentlyContinue
     # Um app aberto pelo proprio instalador rodaria como SYSTEM, fora da sessao do usuario.
     Get-Process -Name $NomeProcesso -ErrorAction SilentlyContinue | Where-Object { $_.SessionId -eq 0 } | Stop-Process -Force -ErrorAction SilentlyContinue
     $depois = Get-VersaoRegistro

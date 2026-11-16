@@ -3,6 +3,77 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.19.0] — 2026-11-16
+
+Versão de correções (revisão de segurança e qualidade do projeto) e Electron 45. App e plugin
+funcionam também com a versão anterior do outro (app 0.19.0 com plugin 0.21.0; app 0.18.0 com
+plugin 0.22.0), mas use os dois da mesma release.
+
+### App GLPI Desktop Client 0.19.0
+
+#### Segurança
+- **Electron 45.3.3** (era 44.5.1), com o Chromium atualizado; fecha um alerta de nível alto sobre
+  certificados de uma autoridade comprometida.
+- **Configuração da máquina protegida.** O `C:\ProgramData\GlpiDesktopClient\config.json` só vale se
+  for do SYSTEM ou dos Administradores e sem escrita para usuários comuns (antes, um usuário comum podia
+  criar esse arquivo e mudar a configuração de todos). O caminho antigo
+  `C:\ProgramData\GlpiDesktop\config.json` deixou de ser lido.
+- **Servidor escolhido pelo usuário.** Num servidor diferente do configurado no computador, o app não
+  envia o App-Token da máquina nem o login do Windows; o usuário entra com usuário e senha. A TI libera
+  o login do Windows para outros servidores pelo `dominiosSSO`.
+- Endereços `glpidesktop://` (clique na notificação) não levam mais opções do app junto.
+- O log do app não mostra mais nenhum caractere dos tokens (só uma impressão digital curta).
+- O link da pesquisa de satisfação externa pede confirmação antes de abrir, como os outros links.
+
+#### Corrigido
+- **A verificação de novidades não trava mais** quando o servidor ou a rede não respondem: toda
+  chamada ao GLPI tem tempo limite. Antes, o app podia parar de avisar até ser reiniciado.
+- **Nenhum aviso se perde** numa falha passageira de rede: a verificação seguinte pega a novidade.
+- Falha no login do Windows não pausa mais a verificação em silêncio.
+- Se a TI trocar o App-Token na aba Conexão do plugin, o app pega o novo sozinho.
+- "Observar" mostra um erro claro se o GLPI não incluir você (perfil sem o direito), em vez de dizer
+  que deu certo.
+- A gravação de tela que falha ao começar libera o microfone e a tela na hora.
+- A captura de tela não fica presa se uma das janelas dela travar.
+- O app usa menos memória depois de dias aberto (as imagens dos chamados têm limite).
+- Fechar o app encerra a sessão no GLPI.
+
+#### Removido
+- O instalador `.msi` (era gerado sem o início automático, o protocolo e os parâmetros do instalador,
+  e não era usado). Use o `.exe`.
+
+### Plugin glpidesktop 0.22.0
+
+Sem mudança no banco; atualizar com `plugin:install --force` + `plugin:activate`, como nas versões
+anteriores.
+
+#### Segurança
+- **O app só recebe o que a tela do GLPI mostraria:** quem escreveu acompanhamentos e tarefas
+  privados só para quem vê privados; o e-mail alternativo dos atores só para quem pode alterar atores;
+  usuário e IP de um equipamento vinculado só para quem pode ver o equipamento.
+- **Computador do usuário:** o preenchimento automático e o vínculo do computador ao chamado só usam
+  um computador do próprio usuário (dono no inventário ou registrado numa estação dele).
+- **Estações:** nome de computador validado e limite de 30 computadores por usuário; o CSV exportado
+  não tem mais células que o Excel execute como fórmula.
+
+#### Corrigido
+- **"Observar"** só aparece para quem o GLPI deixa se associar ao chamado (mesma regra da tela do
+  GLPI). Antes aparecia ao perfil de autoatendimento e o GLPI não gravava.
+- "Marcar como duplicado e solucionar" só vale para chamados já marcados como duplicados e diz o que
+  ficou gravado se o vínculo não voltar.
+- Dois envios ao mesmo tempo (estação, preferências, dados do computador) não dão mais erro nem
+  acompanhamento duplicado.
+- Ícone personalizado: PNG até 2048×2048 pixels (imagens maiores podiam derrubar o PHP).
+
+### Implantação (scripts em `deploy/powershell`)
+
+#### Segurança
+- `Atualizar-GlpiDesktopClient.ps1` baixa e confere o instalador numa pasta só do SYSTEM e dos
+  Administradores (antes, um usuário comum podia trocar o instalador antes de ele rodar como SYSTEM). O
+  log foi para `C:\Windows\Logs\GlpiDesktopClient` e não mostra o valor de `/APP_TOKEN=`.
+- `Instalar-GlpiDesktopClient.ps1`: o SHA-256 passou a ser obrigatório, `http://` é recusado e a pasta
+  `C:\ProgramData\GlpiDesktopClient` passa a ser do SYSTEM.
+
 ## [0.18.0] — 2026-10-29
 
 ### App GLPI Desktop Client 0.18.0

@@ -91,4 +91,6 @@ Na resposta do chamado e nos campos de anexo do formulário há **Anexar arquivo
   usuário. O app continua na bandeja e não entra sozinho até o usuário pedir. **Fechar o GLPI Desktop
   Client**, no menu da bandeja, encerra o app.
 - **Trocar servidor** (engrenagem): sai da sessão, esquece o servidor escolhido e volta para "Conectar
-  ao servidor". Não aparece quando o administrador travou o servidor (`lockServer`).
+  ao servidor". Não aparece quando o administrador travou o servidor (`lockServer`). Num servidor
+  diferente do configurado neste computador, o app não usa a conta do Windows: entre com usuário e
+  senha (a TI pode liberar o login do Windows para outros servidores da organização).

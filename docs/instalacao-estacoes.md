@@ -136,8 +136,10 @@ Empacote o instalador como **aplicativo Win32** (`.intunewin`):
 [`deploy/powershell/Instalar-GlpiDesktopClient.ps1`](../deploy/powershell/Instalar-GlpiDesktopClient.ps1)
 roda como SYSTEM. Ele:
 
-- grava a configuração da máquina;
-- baixa o instalador (http/https ou caminho de rede) e confere o SHA-256;
+- grava a configuração da máquina em `C:\ProgramData\GlpiDesktopClient`, que passa a ser do SYSTEM
+  (usuários comuns só leem) — a partir da 0.19.0;
+- baixa o instalador (`https://` ou caminho de rede) numa pasta só do SYSTEM e confere o SHA-256
+  (obrigatório a partir da 0.19.0; `http://` é recusado);
 - fecha o app aberto, instala com `/S` e confere a versão instalada.
 
 Se a versão pedida já estiver instalada, só regrava a configuração. Ele sai com 0 quando dá certo e
@@ -145,8 +147,8 @@ com 1 quando falha.
 
 ```powershell
 .\Instalar-GlpiDesktopClient.ps1 `
-  -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.3.1/GLPI-Desktop-Client-Setup-0.3.1.exe" `
-  -Versao "0.3.1" `
+  -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.19.0/GLPI-Desktop-Client-Setup-0.19.0.exe" `
+  -Versao "0.19.0" `
   -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
   -GlpiUrl "https://glpi.exemplo.com.br" `
   -LockServer
@@ -177,10 +179,23 @@ Alternativa ao registro: `%ProgramData%\GlpiDesktopClient\config.json` (ou seja,
 
 `appName` vazio = sem nome próprio (vale o do plugin ou o padrão).
 
+**Só vale se o arquivo estiver protegido** (a partir da 0.19.0): o dono precisa ser o SYSTEM ou os
+Administradores, e usuários comuns não podem gravar nele. A pasta `C:\ProgramData` deixa qualquer
+usuário criar arquivos, e um `config.json` criado por um usuário comum valeria para todos os usuários
+da máquina; por isso o app ignora esse arquivo e registra o motivo no log. Crie o arquivo pela GPO,
+Intune ou script rodando como SYSTEM (o `Instalar-GlpiDesktopClient.ps1` já faz isso). O caminho antigo
+`C:\ProgramData\GlpiDesktop\config.json` deixou de ser lido.
+
 Ordem em que o app procura (a primeira que tiver o valor vence): GPO
 (`HKLM\SOFTWARE\Policies\GlpiDesktopClient`), instalador (`HKLM\SOFTWARE\GlpiDesktopClient`),
 `config.json`. Sem `lockServer`, o servidor que o usuário escolher em "Trocar servidor" vale para
 ele no lugar do da máquina.
+
+**Servidor escolhido pelo usuário** (a partir da 0.19.0): se ele for diferente do servidor da máquina,
+o app não envia para ele o App-Token da máquina nem o login do Windows (SSO) — o usuário entra com
+usuário e senha. Para liberar o login do Windows num outro servidor da organização, inclua o endereço
+em `dominiosSSO` (GPO ou `config.json`, ex.: `*.exemplo.com.br`). Para impedir a troca, use
+`/LOCK_SERVER=1`.
 
 ## Atualização
 
@@ -200,7 +215,8 @@ usuário, não abre outro. `--fechar` encerra o app aberto do usuário (como **F
 roda como SYSTEM (Tactical RMM, Intune, GPO de inicialização) e:
 
 1. sai sem fazer nada se a versão pedida já estiver instalada (`-Forcar` reinstala);
-2. baixa o instalador (`https://` ou caminho de rede) e confere o SHA-256;
+2. baixa o instalador (`https://` ou caminho de rede) numa pasta nova, só do SYSTEM e dos
+   Administradores, e confere o SHA-256 ali (a partir da 0.19.0);
 3. fecha o app em todas as sessões: primeiro pedindo para fechar (`--fechar`, a partir da 0.13.0) e,
    se não fechar em 10 s, à força;
 4. instala com `/S` e confere o código de saída do instalador e a versão instalada (registro e arquivo);
@@ -209,15 +225,16 @@ roda como SYSTEM (Tactical RMM, Intune, GPO de inicialização) e:
    a sessão desconectada), não abre: o app sobe no próximo logon.
 
 ```powershell
-.\Atualizar-GlpiDesktopClient.ps1 -Versao 0.13.0 -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
-  -Instalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.13.0/GLPI-Desktop-Client-Setup-0.13.0.exe" `
+.\Atualizar-GlpiDesktopClient.ps1 -Versao 0.19.0 -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
+  -Instalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.19.0/GLPI-Desktop-Client-Setup-0.19.0.exe" `
   -ArgumentosInstalador '/GLPI_URL=https://glpi.exemplo.com.br'
 ```
 
 Código de saída: `0` ok (ou já estava na versão), `1` erro antes de instalar (download ou SHA-256),
 `2` instalação não confirmada, `3` instalado, mas não reaberto para algum usuário. A última linha
 (`RESUMO:`) traz a versão anterior, a nova e para quem o app foi reaberto. Log completo em
-`C:\ProgramData\GlpiDesktopClient\logs\atualizar-<data>.log`.
+`C:\Windows\Logs\GlpiDesktopClient\atualizar-<data>.log` (até a 0.18:
+`C:\ProgramData\GlpiDesktopClient\logs`); o valor de `/APP_TOKEN=` sai mascarado.
 
 ## Desinstalação
 

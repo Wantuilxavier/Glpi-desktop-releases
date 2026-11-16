@@ -97,7 +97,7 @@ instalação silenciosa (`/S`) — já com o endereço do GLPI da aba Conexão, 
 | Opção | No app |
 |---|---|
 | Timeline (padrão), Balão ou Ticket | ícone da janela, barra de tarefas, bandeja, notificações e atalhos do usuário |
-| Personalizado | `.ico`, ou `.png` quadrado com no mínimo 256×256; até 1 MB; SVG não é aceito. Do PNG, o plugin gera também o `.ico` (com a extensão GD) |
+| Personalizado | `.ico`, ou `.png` quadrado de 256×256 a 2048×2048; até 1 MB; SVG não é aceito. Do PNG, o plugin gera também o `.ico` (com a extensão GD) |
 
 O app confere o ícone a cada conexão e troca sozinho. Não mudam: o ícone do instalador, o de
 "Aplicativos instalados" e o atalho do Menu Iniciar criado para todos os usuários.
