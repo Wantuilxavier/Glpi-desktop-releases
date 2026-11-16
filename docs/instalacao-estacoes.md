@@ -147,8 +147,8 @@ com 1 quando falha.
 
 ```powershell
 .\Instalar-GlpiDesktopClient.ps1 `
-  -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.19.0/GLPI-Desktop-Client-Setup-0.19.0.exe" `
-  -Versao "0.19.0" `
+  -UrlInstalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.20.0/GLPI-Desktop-Client-Setup-0.20.0.exe" `
+  -Versao "0.20.0" `
   -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
   -GlpiUrl "https://glpi.exemplo.com.br" `
   -LockServer
@@ -225,8 +225,8 @@ roda como SYSTEM (Tactical RMM, Intune, GPO de inicialização) e:
    a sessão desconectada), não abre: o app sobe no próximo logon.
 
 ```powershell
-.\Atualizar-GlpiDesktopClient.ps1 -Versao 0.19.0 -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
-  -Instalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.19.0/GLPI-Desktop-Client-Setup-0.19.0.exe" `
+.\Atualizar-GlpiDesktopClient.ps1 -Versao 0.20.0 -Sha256 "<SHA-256 do SHA256SUMS.txt>" `
+  -Instalador "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.20.0/GLPI-Desktop-Client-Setup-0.20.0.exe" `
   -ArgumentosInstalador '/GLPI_URL=https://glpi.exemplo.com.br'
 ```
 

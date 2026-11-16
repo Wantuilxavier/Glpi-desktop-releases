@@ -49,6 +49,8 @@ mensagens em [Instalação nas estações](instalacao-estacoes.md#instalação-m
 - **Novidades:** notificação do Windows, número no ícone da barra de tarefas e da bandeja e o botão do app piscando na barra de tarefas, na cor de aviso do Windows (vermelho no Windows 11, laranja no Windows 10): pisca algumas vezes e depois fica destacado até você abrir o app.
 - **Tema:** na engrenagem (canto superior direito) — seguir o Windows, claro ou escuro, com ou sem as
   cores do GLPI.
+- **Avisos:** na engrenagem, em **Configurar avisos**, escolha quais notificações quer receber (o item
+  aparece para perfis técnicos e, para os demais, só se o administrador liberar no plugin).
 - **Tamanho do texto:** Ctrl + aumenta, Ctrl − diminui e Ctrl 0 volta a 100% (também com Ctrl e a
   roda do mouse, ou na engrenagem, em **Tamanho do texto**). De 80% a 150%; a escolha fica salva para
   o usuário do Windows neste computador.

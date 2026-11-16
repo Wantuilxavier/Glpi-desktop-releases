@@ -3,6 +3,43 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.20.0] — 2026-11-16
+
+Refino do visual do app. Só o app muda; o plugin continua o 0.22.0.
+
+### App GLPI Desktop Client 0.20.0
+
+#### Alterado
+- **Campo de resposta do técnico mais simples.** Resposta, Tarefa, Solução e Aprovação agora são
+  escolhidas num seletor no topo do campo; embaixo ficam só os anexos, o Privado e o botão de envio.
+  O campo cabe na primeira tela em 1366×768.
+- **"Abrir no navegador"** saiu do campo de resposta e foi para o cabeçalho do chamado.
+- **"Atribuir a mim"** passou a ser um botão contornado, para a tela ter um só botão amarelo cheio.
+- **Falha ao carregar não parece mais lista vazia.** Quando a lista ou um chamado não carrega, o app diz
+  o que aconteceu e mostra "Tentar novamente" no lugar, em vez de "Nenhum chamado".
+- **Carregamento visível.** Ao trocar de visão e ao abrir um chamado, aparece um esboço do conteúdo
+  enquanto os dados chegam.
+- **Avisos de erro ficam mais tempo na tela** (12 segundos, com botão de fechar) e são lidos pelo leitor
+  de tela na hora. Os de sucesso continuam sumindo em 4 segundos.
+- **Busca de formulário sem resultado** mostra a palavra buscada e o botão "Limpar busca".
+- **Cores de status iguais nos dois temas.** No tema escuro, Novo e Em atendimento voltam a ser verdes e
+  Solucionado e Fechado, cinza, como no tema claro (antes eram azul, índigo e verde).
+- **Aprovar a solução ficou no lugar certo.** O pedido de aprovação aparece logo depois da solução, e
+  uma faixa no topo do chamado avisa que ele aguarda a aprovação e leva até ela. Depois de aprovar ou
+  recusar, a confirmação fica no topo do chamado, em vez de sumir em 4 segundos.
+- **Chamado fechado** não mostra mais o campo de resposta desabilitado: uma linha diz que ele está
+  fechado e leva para "Novo chamado".
+- **Menu da engrenagem mais curto.** Os interruptores de aviso foram para um painel lateral, aberto por
+  "Configurar avisos"; "Lista compacta" virou um item do menu. O menu inteiro, com "Sair", cabe na
+  tela em 1366×768 sem rolar.
+- **Acessibilidade.** O chamado aberto é anunciado como o item atual da lista pelo leitor de tela, e
+  o indicador de carregamento para de girar com "reduzir movimento" ligado no Windows.
+- **Texto explicativo dos formulários** (bloco de comentário) deixou de ter a barra amarela na lateral;
+  agora é uma caixa com contorno.
+- **"Enviar chamado"** é o novo nome do botão que envia o formulário (era "Enviar solicitação"), para
+  usar a mesma palavra do GLPI e do resto do app; a tela seguinte diz "Chamado aberto" e "Abrir outro
+  chamado".
+
 ## [0.19.0] — 2026-11-16
 
 Versão de correções (revisão de segurança e qualidade do projeto) e Electron 45. App e plugin
@@ -107,7 +144,7 @@ anteriores.
   diagnóstico, Janela de abertura), aproveitando melhor a largura da tela.
 - As listas de **Público** dos avisos passam a usar o dropdown padrão do GLPI, com busca e paginação.
 
-## [0.17.0] — não publicada
+## [0.17.0] — 2026-10-27
 
 ### App GLPI Desktop Client 0.17.0
 
@@ -132,7 +169,7 @@ deixa de mostrar o selo da solução em chamado fechado.
   histórico do chamado) e a data do fechamento. Sem mudança no banco; atualizar com
   `plugin:install --force` + `plugin:activate`, como nas versões anteriores.
 
-## [0.16.3] — não publicada
+## [0.16.3] — não publicada isoladamente (correção incluída na 0.17.0)
 
 ### App GLPI Desktop Client 0.16.3
 
