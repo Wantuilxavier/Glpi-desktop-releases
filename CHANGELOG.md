@@ -3,6 +3,18 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.20.1] — 2026-11-26
+
+Correção no app. O plugin continua o 0.22.0.
+
+### App GLPI Desktop Client 0.20.1
+
+#### Corrigido
+- **Cores do GLPI também para usuários de autoatendimento.** Com perfil de interface simplificada
+  (Self-Service), o app não conseguia ler a paleta do GLPI e registrava `tema do GLPI: … HTTP 403` no log
+  a cada início. Agora ele lê a paleta da página inicial do autoatendimento e acompanha as cores do GLPI
+  como já fazia para os técnicos.
+
 ## [0.20.0] — 2026-11-16
 
 Refino do visual do app. Só o app muda; o plugin continua o 0.22.0.

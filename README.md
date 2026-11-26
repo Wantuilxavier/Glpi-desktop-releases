@@ -49,7 +49,7 @@ Conferir o arquivo baixado:
 
 ```powershell
 # Windows: compare o resultado com a linha do arquivo em SHA256SUMS.txt
-Get-FileHash .\GLPI-Desktop-Client-Setup-0.20.0.exe -Algorithm SHA256
+Get-FileHash .\GLPI-Desktop-Client-Setup-0.20.1.exe -Algorithm SHA256
 ```
 
 ```bash
@@ -61,6 +61,7 @@ sha256sum -c SHA256SUMS.txt --ignore-missing
 
 | Plugin | App | GLPI | PHP |
 |---|---|---|---|
+| 0.22.0 | 0.20.1 | 11.0.x | 8.2 ou mais novo |
 | 0.22.0 | 0.20.0 | 11.0.x | 8.2 ou mais novo |
 | 0.22.0 | 0.19.0 | 11.0.x | 8.2 ou mais novo |
 | 0.22.0 | 0.18.0 | 11.0.x | 8.2 ou mais novo |
@@ -111,7 +112,7 @@ do servidor web (no Debian/Ubuntu é `www-data`; no RHEL e derivados, `apache` o
 ```bash
 VERSAO=0.22.0
 GLPI=/var/www/glpi
-BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.20.0
+BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.20.1
 
 cd /tmp
 curl -fLO "$BASE/glpidesktop-$VERSAO.tar.bz2"
@@ -142,7 +143,7 @@ Troque `glpi.exemplo.com.br` pelo endereço do seu GLPI.
 **Baixar, conferir e instalar** (PowerShell como administrador):
 
 ```powershell
-$versao = "0.20.0"
+$versao = "0.20.1"
 $base   = "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v$versao"
 $exe    = "GLPI-Desktop-Client-Setup-$versao.exe"
 Invoke-WebRequest "$base/$exe" -OutFile "$env:TEMP\$exe"
@@ -156,7 +157,7 @@ Start-Process "$env:TEMP\$exe" -ArgumentList '/S /GLPI_URL=https://glpi.exemplo.
 
 ```bat
 :: instalação silenciosa, já apontando para o seu GLPI
-GLPI-Desktop-Client-Setup-0.20.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br
+GLPI-Desktop-Client-Setup-0.20.1.exe /S /GLPI_URL=https://glpi.exemplo.com.br
 
 :: o mesmo, sem deixar o usuário trocar de servidor
 GLPI-Desktop-Client-Setup-0.20.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br /LOCK_SERVER=1
