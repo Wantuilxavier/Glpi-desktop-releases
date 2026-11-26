@@ -49,7 +49,7 @@ Conferir o arquivo baixado:
 
 ```powershell
 # Windows: compare o resultado com a linha do arquivo em SHA256SUMS.txt
-Get-FileHash .\GLPI-Desktop-Client-Setup-0.20.1.exe -Algorithm SHA256
+Get-FileHash .\GLPI-Desktop-Client-Setup-0.21.0.exe -Algorithm SHA256
 ```
 
 ```bash
@@ -61,6 +61,7 @@ sha256sum -c SHA256SUMS.txt --ignore-missing
 
 | Plugin | App | GLPI | PHP |
 |---|---|---|---|
+| 0.23.0 | 0.21.0 | 11.0.x | 8.2 ou mais novo |
 | 0.22.0 | 0.20.1 | 11.0.x | 8.2 ou mais novo |
 | 0.22.0 | 0.20.0 | 11.0.x | 8.2 ou mais novo |
 | 0.22.0 | 0.19.0 | 11.0.x | 8.2 ou mais novo |
@@ -110,14 +111,14 @@ No servidor do GLPI 11, como root. Ajuste `GLPI` para a pasta do seu GLPI e `www
 do servidor web (no Debian/Ubuntu é `www-data`; no RHEL e derivados, `apache` ou `nginx`).
 
 ```bash
-VERSAO=0.22.0
+VERSAO=0.23.0
 GLPI=/var/www/glpi
-BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.20.1
+BASE=https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v0.21.0
 
 cd /tmp
 curl -fLO "$BASE/glpidesktop-$VERSAO.tar.bz2"
 curl -fLO "$BASE/SHA256SUMS.txt"
-sha256sum -c SHA256SUMS.txt --ignore-missing      # deve mostrar "glpidesktop-0.22.0.tar.bz2: OK" (ou "SUCESSO")
+sha256sum -c SHA256SUMS.txt --ignore-missing      # deve mostrar "glpidesktop-0.23.0.tar.bz2: OK" (ou "SUCESSO")
 
 tar -xjf "glpidesktop-$VERSAO.tar.bz2" -C "$GLPI/plugins/"
 chown -R www-data:www-data "$GLPI/plugins/glpidesktop"
@@ -143,7 +144,7 @@ Troque `glpi.exemplo.com.br` pelo endereço do seu GLPI.
 **Baixar, conferir e instalar** (PowerShell como administrador):
 
 ```powershell
-$versao = "0.20.1"
+$versao = "0.21.0"
 $base   = "https://github.com/Wantuilxavier/Glpi-desktop-releases/releases/download/v$versao"
 $exe    = "GLPI-Desktop-Client-Setup-$versao.exe"
 Invoke-WebRequest "$base/$exe" -OutFile "$env:TEMP\$exe"
@@ -157,7 +158,7 @@ Start-Process "$env:TEMP\$exe" -ArgumentList '/S /GLPI_URL=https://glpi.exemplo.
 
 ```bat
 :: instalação silenciosa, já apontando para o seu GLPI
-GLPI-Desktop-Client-Setup-0.20.1.exe /S /GLPI_URL=https://glpi.exemplo.com.br
+GLPI-Desktop-Client-Setup-0.21.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br
 
 :: o mesmo, sem deixar o usuário trocar de servidor
 GLPI-Desktop-Client-Setup-0.20.0.exe /S /GLPI_URL=https://glpi.exemplo.com.br /LOCK_SERVER=1

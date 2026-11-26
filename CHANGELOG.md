@@ -3,6 +3,29 @@
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). App e plugin saem
 juntos em cada release; use os dois da mesma release.
 
+## [0.21.0] — 2026-11-26
+
+App e plugin novos: use os dois desta release. O app 0.21.0 funciona com o plugin 0.22.0, mas sem o
+grupo atribuído do diagnóstico.
+
+### App GLPI Desktop Client 0.21.0
+
+#### Adicionado
+- **Chamado de diagnóstico já na fila certa.** Em **Enviar diagnóstico → abrir um chamado novo**, o
+  chamado nasce com a categoria e o grupo atribuído escolhidos na aba Conexão do plugin.
+
+#### Corrigido
+- **Formulário com rascunho voltou a abrir.** Quando o usuário saía de um formulário com a descrição
+  preenchida, o rascunho salvo fazia o formulário mostrar "Não foi possível abrir o formulário" em todas
+  as tentativas seguintes. Agora o formulário abre com o rascunho, como esperado.
+- **Erro ao abrir um formulário vai para o log** do app, e com isso para o "Enviar diagnóstico".
+
+### Plugin glpidesktop 0.23.0
+
+#### Adicionado
+- **Grupo atribuído do chamado "Diagnóstico do aplicativo"** na aba Conexão, ao lado da categoria.
+  Só aparecem os grupos que podem receber chamados.
+
 ## [0.20.1] — 2026-11-26
 
 Correção no app. O plugin continua o 0.22.0.
